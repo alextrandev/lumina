@@ -1,1 +1,690 @@
 @import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-primary: #0a0a14;
+    --bg-surface: #13132a;
+    --bg-surface-hover: #1a1a3e;
+    --accent: #c9a84c;
+    --accent-glow: #e8d48b;
+    --accent-dim: #8a7633;
+    --text-primary: #e8e6e3;
+    --text-muted: #8a8894;
+    --text-dim: #5a586a;
+    --font-heading: "Cinzel", serif;
+    --font-body: "Inter", sans-serif;
+    --radius-card: 12px;
+    --radius-btn: 8px;
+    --transition: 0.3s ease;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* ===== App Shell ===== */
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== Star Field ===== */
+.star-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.stars {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+}
+
+.stars-small {
+  background-image: radial-gradient(1px 1px at 20px 30px, var(--text-dim), transparent),
+    radial-gradient(1px 1px at 40px 70px, var(--text-muted), transparent),
+    radial-gradient(1px 1px at 50px 160px, var(--text-dim), transparent),
+    radial-gradient(1px 1px at 60px 30px, var(--text-dim), transparent),
+    radial-gradient(1px 1px at 90px 100px, var(--text-muted), transparent),
+    radial-gradient(1px 1px at 150px 150px, var(--text-dim), transparent),
+    radial-gradient(1px 1px at 170px 50px, var(--text-dim), transparent),
+    radial-gradient(1px 1px at 120px 200px, var(--text-muted), transparent);
+  background-size: 200px 200px;
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+
+.stars-medium {
+  background-image: radial-gradient(1.5px 1.5px at 100px 50px, var(--text-muted), transparent),
+    radial-gradient(1.5px 1.5px at 200px 150px, var(--text-dim), transparent),
+    radial-gradient(1.5px 1.5px at 30px 180px, var(--text-muted), transparent),
+    radial-gradient(1.5px 1.5px at 250px 100px, var(--text-dim), transparent);
+  background-size: 300px 300px;
+  animation: twinkle 5s ease-in-out infinite alternate-reverse;
+}
+
+.stars-large {
+  background-image: radial-gradient(2px 2px at 80px 120px, var(--accent-dim), transparent),
+    radial-gradient(2px 2px at 220px 80px, var(--accent-dim), transparent);
+  background-size: 400px 400px;
+  animation: twinkle 6s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+/* ===== Step Container ===== */
+.step-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+/* ===== Fade In Animation ===== */
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* ===== Typography ===== */
+.app-title {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 4px;
+  text-shadow: 0 0 40px rgba(201, 168, 76, 0.3);
+  margin-bottom: 4px;
+}
+
+.app-subtitle {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--text-muted);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.reader-message {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  max-width: 600px;
+  white-space: pre-line;
+}
+
+/* ===== Typing Cursor ===== */
+.typing-text .cursor {
+  color: var(--accent);
+  animation: blink 0.8s step-end infinite;
+  font-weight: 300;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ===== Mystic Button ===== */
+.mystic-button {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  padding: 14px 32px;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.mystic-button.primary {
+  background: transparent;
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+}
+
+.mystic-button.primary:hover:not(:disabled) {
+  background: var(--accent);
+  color: var(--bg-primary);
+  box-shadow: 0 0 30px rgba(201, 168, 76, 0.3), 0 0 60px rgba(201, 168, 76, 0.1);
+}
+
+.mystic-button.ghost {
+  background: transparent;
+  border: 1px solid var(--text-dim);
+  color: var(--text-muted);
+}
+
+.mystic-button.ghost:hover:not(:disabled) {
+  border-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+.mystic-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ===== Mystic Input ===== */
+.mystic-input {
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--bg-surface);
+  border: 1px solid var(--text-dim);
+  border-radius: var(--radius-btn);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: border-color var(--transition);
+  outline: none;
+  resize: none;
+}
+
+.mystic-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.1);
+}
+
+.mystic-input::placeholder {
+  color: var(--text-dim);
+}
+
+.mystic-input.multiline {
+  min-height: 100px;
+}
+
+/* ===== Input Area ===== */
+.input-area {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.button-row {
+  display: flex;
+  gap: 12px;
+}
+
+/* ===== Thinking Indicator ===== */
+.thinking-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.thinking-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.thinking-dots span {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: block;
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+
+.thinking-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.thinking-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dotPulse {
+  0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1.2); }
+}
+
+.thinking-phrase {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+/* ===== Spread Grid ===== */
+.spread-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 8px;
+}
+
+.spread-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--text-dim);
+  border-radius: var(--radius-card);
+  padding: 20px 24px;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: left;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: inherit;
+}
+
+.spread-card:hover {
+  border-color: var(--accent);
+  background: var(--bg-surface-hover);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.08);
+  transform: translateY(-2px);
+}
+
+.spread-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+.spread-card-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.spread-card-count {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+/* ===== Card Pick Step ===== */
+.card-pick-step {
+  gap: 20px;
+}
+
+.pick-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.pick-position {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.pick-instruction {
+  font-size: 0.95rem;
+  max-width: 500px;
+}
+
+/* ===== Card Grid ===== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  gap: 6px;
+  width: 100%;
+  max-width: 750px;
+  margin-top: 12px;
+}
+
+/* ===== Card Slot (Flip Animation) ===== */
+.card-slot {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  perspective: 600px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  position: relative;
+}
+
+.card-slot:hover:not(.selected):not(.flipped) {
+  transform: scale(1.12);
+  z-index: 2;
+}
+
+.card-slot.selected {
+  cursor: default;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s ease;
+  transform-style: preserve-3d;
+}
+
+.card-slot.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.card-front {
+  z-index: 2;
+}
+
+.card-back-side {
+  transform: rotateY(180deg);
+  background: var(--bg-surface);
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* ===== Card Back Design ===== */
+.card-back-design {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a3e 0%, #0d0d20 50%, #1a1a3e 100%);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--accent-dim);
+}
+
+.card-back-border {
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-back-pattern {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-back-symbol {
+  color: var(--accent-dim);
+  font-size: 0.7rem;
+  opacity: 0.6;
+}
+
+/* ===== Loading Screen ===== */
+.loading-screen {
+  gap: 32px;
+}
+
+.loading-title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+
+.loading-cards {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.loading-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.loading-card-img {
+  width: 80px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--accent-dim);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.15);
+}
+
+.loading-card-name {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+/* Loading orbit animation */
+.loading-animation {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.orbit {
+  width: 100%;
+  height: 100%;
+  animation: spin 3s linear infinite;
+  position: relative;
+}
+
+.orbit-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.orbit-dot:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
+.orbit-dot:nth-child(2) { bottom: 10px; left: 10px; }
+.orbit-dot:nth-child(3) { bottom: 10px; right: 10px; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-phrase {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 1rem;
+  min-height: 1.5em;
+  transition: opacity 0.3s ease;
+}
+
+/* ===== Reading Result ===== */
+.reading-result {
+  gap: 24px;
+  align-items: center;
+  padding-bottom: 60px;
+}
+
+.reading-title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+
+.reading-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: -12px;
+}
+
+.reading-question {
+  background: var(--bg-surface);
+  border: 1px solid var(--text-dim);
+  border-radius: var(--radius-card);
+  padding: 20px 24px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.reading-question-label {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.reading-question-text {
+  color: var(--text-primary);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* Reading Cards */
+.reading-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.reading-card {
+  display: flex;
+  gap: 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--text-dim);
+  border-radius: var(--radius-card);
+  padding: 16px;
+  text-align: left;
+}
+
+.reading-card-img {
+  width: 70px;
+  height: 105px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+  border: 1px solid var(--accent-dim);
+}
+
+.reading-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+}
+
+.reading-card-position {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.reading-card-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.reading-card-meaning {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Reading Interpretation */
+.reading-interpretation {
+  background: var(--bg-surface);
+  border: 1px solid var(--accent-dim);
+  border-radius: var(--radius-card);
+  padding: 24px;
+  max-width: 600px;
+  width: 100%;
+  text-align: left;
+}
+
+.reading-interpretation h3 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.reading-interpretation p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.reading-placeholder-note {
+  text-align: center;
+  color: var(--accent-dim) !important;
+  font-style: italic;
+  font-size: 0.9rem !important;
+}
+
+/* ===== Responsive ===== */
+@media (min-width: 640px) {
+  .app-content {
+    padding: 60px 32px;
+  }
+
+  .app-title {
+    font-size: 3.5rem;
+  }
+
+  .spread-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .loading-card-img {
+    width: 100px;
+    height: 150px;
+  }
+}
