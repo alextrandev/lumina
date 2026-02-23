@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { FadeIn } from "@/app/components/ui/fade-in";
 import { TarotCard, Spread } from "@/app/types";
-import { loadingPhrases } from "@/app/data/dialogue";
+import { useI18n } from "@/app/i18n";
 
 interface LoadingScreenProps {
   spread: Spread;
@@ -12,18 +12,19 @@ interface LoadingScreenProps {
 }
 
 export function LoadingScreen({ spread, selectedCards, onComplete }: LoadingScreenProps) {
+  const { t } = useI18n();
   const [phraseIndex, setPhraseIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setPhraseIndex((i) => (i + 1) % loadingPhrases.length);
+      setPhraseIndex((i) => (i + 1) % t.loading.phrases.length);
     }, 2500);
     const timer = setTimeout(onComplete, 6000);
     return () => {
       clearInterval(interval);
       clearTimeout(timer);
     };
-  }, [onComplete]);
+  }, [onComplete, t.loading.phrases.length]);
 
   return (
     <div className="step-container loading-screen">
@@ -51,7 +52,7 @@ export function LoadingScreen({ spread, selectedCards, onComplete }: LoadingScre
       </div>
 
       <FadeIn delay={500}>
-        <p className="loading-phrase">{loadingPhrases[phraseIndex]}</p>
+        <p className="loading-phrase">{t.loading.phrases[phraseIndex]}</p>
       </FadeIn>
     </div>
   );

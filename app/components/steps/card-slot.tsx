@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { TarotCard } from "@/app/types";
 import { CardBack } from "./card-back";
+import { useI18n } from "@/app/i18n";
 
 interface CardSlotProps {
   card: TarotCard;
@@ -12,6 +13,7 @@ interface CardSlotProps {
 }
 
 export function CardSlot({ card, isSelected, onSelect, disabled }: CardSlotProps) {
+  const { t } = useI18n();
   const [flipped, setFlipped] = useState(false);
   const [imgSrc, setImgSrc] = useState<string | null>(null);
 
@@ -28,7 +30,7 @@ export function CardSlot({ card, isSelected, onSelect, disabled }: CardSlotProps
       onClick={handleClick}
       role="button"
       tabIndex={disabled || isSelected ? -1 : 0}
-      aria-label={flipped ? card.name : "Face-down tarot card"}
+      aria-label={flipped ? card.name : t.cardPick.faceDownLabel}
     >
       <div className="card-inner">
         <div className="card-face card-front">

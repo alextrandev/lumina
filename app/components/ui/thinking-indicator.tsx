@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { thinkingPhrases } from "@/app/data/dialogue";
+import { useI18n } from "@/app/i18n";
 
 interface ThinkingIndicatorProps {
   duration?: number;
@@ -9,8 +9,9 @@ interface ThinkingIndicatorProps {
 }
 
 export function ThinkingIndicator({ duration = 2000, onComplete }: ThinkingIndicatorProps) {
+  const { t } = useI18n();
   const [phrase] = useState(
-    () => thinkingPhrases[Math.floor(Math.random() * thinkingPhrases.length)]
+    () => t.thinking[Math.floor(Math.random() * t.thinking.length)]
   );
 
   useEffect(() => {

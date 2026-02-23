@@ -669,6 +669,51 @@
   font-size: 0.9rem !important;
 }
 
+/* ===== Language Picker ===== */
+.language-picker {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--text-dim);
+  border-radius: 20px;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.lang-btn:hover {
+  border-color: var(--accent-dim);
+  color: var(--text-primary);
+  background: var(--bg-surface-hover);
+}
+
+.lang-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(201, 168, 76, 0.08);
+}
+
+.lang-flag {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.lang-name {
+  letter-spacing: 0.5px;
+}
+
 /* ===== Responsive ===== */
 @media (min-width: 640px) {
   .app-content {

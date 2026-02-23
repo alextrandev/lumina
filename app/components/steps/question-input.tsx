@@ -6,13 +6,14 @@ import { FadeIn } from "@/app/components/ui/fade-in";
 import { MysticButton } from "@/app/components/ui/mystic-button";
 import { MysticInput } from "@/app/components/ui/mystic-input";
 import { ThinkingIndicator } from "@/app/components/ui/thinking-indicator";
-import { questionPrompt } from "@/app/data/dialogue";
+import { useI18n } from "@/app/i18n";
 
 interface QuestionInputProps {
   onSubmit: (question: string) => void;
 }
 
 export function QuestionInput({ onSubmit }: QuestionInputProps) {
+  const { t } = useI18n();
   const [phase, setPhase] = useState<"thinking" | "typing" | "ready">("thinking");
   const [value, setValue] = useState("");
 
@@ -32,7 +33,7 @@ export function QuestionInput({ onSubmit }: QuestionInputProps) {
       {(phase === "typing" || phase === "ready") && (
         <FadeIn>
           <TypingText
-            text={questionPrompt}
+            text={t.question.prompt}
             speed={20}
             onComplete={handleTypingDone}
             className="reader-message"
@@ -47,11 +48,11 @@ export function QuestionInput({ onSubmit }: QuestionInputProps) {
               value={value}
               onChange={setValue}
               onSubmit={handleSubmit}
-              placeholder="Speak your question..."
+              placeholder={t.question.placeholder}
               multiline
             />
             <MysticButton onClick={handleSubmit} disabled={!value.trim()}>
-              Reveal My Question
+              {t.question.submit}
             </MysticButton>
           </div>
         </FadeIn>

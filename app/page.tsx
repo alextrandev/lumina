@@ -2,6 +2,7 @@
 
 import { useCallback } from "react";
 import { useSession } from "@/app/hooks/use-session";
+import { useI18n } from "@/app/i18n";
 import { StarField } from "@/app/components/ui/star-field";
 import { Welcome } from "@/app/components/steps/welcome";
 import { SpreadSelect } from "@/app/components/steps/spread-select";
@@ -11,9 +12,11 @@ import { CardPick } from "@/app/components/steps/card-pick";
 import { LoadingScreen } from "@/app/components/steps/loading-screen";
 import { ReadingResult } from "@/app/components/steps/reading-result";
 import { Spread, TarotCard, UserInfo } from "@/app/types";
+import { I18nProvider } from "@/app/i18n";
 
-export default function Home() {
+function AppContent() {
   const { session, goTo, setSpread, setQuestion, updateUserInfo, addCard, reset } = useSession();
+  const { t } = useI18n();
 
   const handleBegin = useCallback(() => goTo("spread-select"), [goTo]);
 
@@ -49,6 +52,26 @@ export default function Home() {
   const handleCardsComplete = useCallback(() => goTo("loading"), [goTo]);
   const handleLoadingComplete = useCallback(() => goTo("reading"), [goTo]);
 
+  const translatedSpread = session.spread
+    ? {
+        ...session.spread,
+        ...(() => {
+          const st = t.spreads[session.spread!.id];
+          if (!st) return {};
+          return {
+            name: st.name,
+            description: st.description,
+            positions: session.spread!.positions.map((p, i) => ({
+              ...p,
+              name: st.positions[i]?.name ?? p.name,
+              meaning: st.positions[i]?.meaning ?? p.meaning,
+              instruction: st.positions[i]?.instruction ?? p.instruction,
+            })),
+          };
+        })(),
+      }
+    : null;
+
   return (
     <main className="app-shell">
       <StarField />
@@ -57,24 +80,24 @@ export default function Home() {
         {session.step === "spread-select" && <SpreadSelect onSelect={handleSpreadSelect} />}
         {session.step === "question" && <QuestionInput onSubmit={handleQuestion} />}
         {session.step === "user-info" && <UserInfoStep onComplete={handleUserInfo} />}
-        {session.step === "card-pick" && session.spread && (
+        {session.step === "card-pick" && translatedSpread && (
           <CardPick
-            spread={session.spread}
+            spread={translatedSpread}
             selectedCards={session.selectedCards}
             onCardSelect={handleCardSelect}
             onComplete={handleCardsComplete}
           />
         )}
-        {session.step === "loading" && session.spread && (
+        {session.step === "loading" && translatedSpread && (
           <LoadingScreen
-            spread={session.spread}
+            spread={translatedSpread}
             selectedCards={session.selectedCards}
             onComplete={handleLoadingComplete}
           />
         )}
-        {session.step === "reading" && session.spread && (
+        {session.step === "reading" && translatedSpread && (
           <ReadingResult
-            spread={session.spread}
+            spread={translatedSpread}
             selectedCards={session.selectedCards}
             question={session.question}
             userInfo={session.userInfo}
@@ -83,5 +106,13 @@ export default function Home() {
         )}
       </div>
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <I18nProvider>
+      <AppContent />
+    </I18nProvider>
   );
 }

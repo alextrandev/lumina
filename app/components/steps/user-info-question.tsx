@@ -5,6 +5,7 @@ import { TypingText } from "@/app/components/ui/typing-text";
 import { FadeIn } from "@/app/components/ui/fade-in";
 import { MysticButton } from "@/app/components/ui/mystic-button";
 import { MysticInput } from "@/app/components/ui/mystic-input";
+import { useI18n } from "@/app/i18n";
 
 interface UserInfoQuestionProps {
   question: string;
@@ -12,6 +13,7 @@ interface UserInfoQuestionProps {
 }
 
 export function UserInfoQuestion({ question, onAnswer }: UserInfoQuestionProps) {
+  const { t } = useI18n();
   const [typingDone, setTypingDone] = useState(false);
   const [value, setValue] = useState("");
 
@@ -41,14 +43,14 @@ export function UserInfoQuestion({ question, onAnswer }: UserInfoQuestionProps) 
               value={value}
               onChange={setValue}
               onSubmit={handleSubmit}
-              placeholder="Your answer..."
+              placeholder={t.userInfo.placeholder}
             />
             <div className="button-row">
               <MysticButton onClick={handleSubmit} disabled={!value.trim()}>
-                Answer
+                {t.userInfo.answer}
               </MysticButton>
               <MysticButton variant="ghost" onClick={handleSkip}>
-                Skip
+                {t.userInfo.skip}
               </MysticButton>
             </div>
           </div>

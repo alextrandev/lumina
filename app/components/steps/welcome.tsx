@@ -5,13 +5,15 @@ import { TypingText } from "@/app/components/ui/typing-text";
 import { FadeIn } from "@/app/components/ui/fade-in";
 import { MysticButton } from "@/app/components/ui/mystic-button";
 import { ThinkingIndicator } from "@/app/components/ui/thinking-indicator";
-import { welcomeText } from "@/app/data/dialogue";
+import { LanguagePicker } from "@/app/components/ui/language-picker";
+import { useI18n } from "@/app/i18n";
 
 interface WelcomeProps {
   onBegin: () => void;
 }
 
 export function Welcome({ onBegin }: WelcomeProps) {
+  const { t } = useI18n();
   const [phase, setPhase] = useState<"thinking" | "typing" | "ready">("thinking");
 
   const handleThinkingDone = useCallback(() => setPhase("typing"), []);
@@ -20,8 +22,12 @@ export function Welcome({ onBegin }: WelcomeProps) {
   return (
     <div className="step-container welcome">
       <FadeIn>
-        <h1 className="app-title">✦ Lumina ✦</h1>
-        <p className="app-subtitle">AI Tarot Reader</p>
+        <LanguagePicker />
+      </FadeIn>
+
+      <FadeIn>
+        <h1 className="app-title">{t.welcome.title}</h1>
+        <p className="app-subtitle">{t.welcome.subtitle}</p>
       </FadeIn>
 
       {phase === "thinking" && (
@@ -31,7 +37,7 @@ export function Welcome({ onBegin }: WelcomeProps) {
       {(phase === "typing" || phase === "ready") && (
         <FadeIn delay={200}>
           <TypingText
-            text={welcomeText}
+            text={t.welcome.text}
             speed={25}
             onComplete={handleTypingDone}
             className="reader-message"
@@ -41,7 +47,7 @@ export function Welcome({ onBegin }: WelcomeProps) {
 
       {phase === "ready" && (
         <FadeIn delay={300}>
-          <MysticButton onClick={onBegin}>Begin Your Reading</MysticButton>
+          <MysticButton onClick={onBegin}>{t.welcome.begin}</MysticButton>
         </FadeIn>
       )}
     </div>

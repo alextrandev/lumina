@@ -4,6 +4,7 @@ import { FadeIn } from "@/app/components/ui/fade-in";
 import { MysticButton } from "@/app/components/ui/mystic-button";
 import { ReadingCard } from "./reading-card";
 import { Spread, TarotCard, UserInfo } from "@/app/types";
+import { useI18n } from "@/app/i18n";
 
 interface ReadingResultProps {
   spread: Spread;
@@ -20,18 +21,23 @@ export function ReadingResult({
   userInfo,
   onRestart,
 }: ReadingResultProps) {
-  const name = userInfo.name || "Seeker";
+  const { t } = useI18n();
+  const name = userInfo.name || t.reading.defaultName;
+  const title = t.reading.title.replace("{name}", name);
+  const subtitle = t.reading.subtitle
+    .replace("{spread}", spread.name)
+    .replace("{count}", String(spread.cardCount));
 
   return (
     <div className="step-container reading-result">
       <FadeIn>
-        <h2 className="reading-title">Your Reading, {name}</h2>
-        <p className="reading-subtitle">{spread.name} &mdash; {spread.cardCount} Cards</p>
+        <h2 className="reading-title">{title}</h2>
+        <p className="reading-subtitle">{subtitle}</p>
       </FadeIn>
 
       <FadeIn delay={300}>
         <div className="reading-question">
-          <p className="reading-question-label">Your Question</p>
+          <p className="reading-question-label">{t.reading.questionLabel}</p>
           <p className="reading-question-text">&ldquo;{question}&rdquo;</p>
         </div>
       </FadeIn>
@@ -49,21 +55,14 @@ export function ReadingResult({
 
       <FadeIn delay={800}>
         <div className="reading-interpretation">
-          <h3>The Universe Speaks</h3>
-          <p>
-            The cards have been drawn and their energy is clear. This reading
-            is being prepared by the cosmos — soon, Lumina&apos;s AI will channel
-            the full interpretation of your spread. For now, know that the
-            cards have heard you, and the answers are forming in the starlight.
-          </p>
-          <p className="reading-placeholder-note">
-            ✦ AI-powered interpretation coming soon ✦
-          </p>
+          <h3>{t.reading.interpretationTitle}</h3>
+          <p>{t.reading.interpretationText}</p>
+          <p className="reading-placeholder-note">{t.reading.placeholderNote}</p>
         </div>
       </FadeIn>
 
       <FadeIn delay={1000}>
-        <MysticButton onClick={onRestart}>Begin a New Reading</MysticButton>
+        <MysticButton onClick={onRestart}>{t.reading.restart}</MysticButton>
       </FadeIn>
     </div>
   );

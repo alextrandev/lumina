@@ -7,7 +7,7 @@ import { ThinkingIndicator } from "@/app/components/ui/thinking-indicator";
 import { CardGrid } from "./card-grid";
 import { Spread, TarotCard } from "@/app/types";
 import { deck } from "@/app/data/cards";
-import { cardPickIntro } from "@/app/data/dialogue";
+import { useI18n } from "@/app/i18n";
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -26,6 +26,7 @@ interface CardPickProps {
 }
 
 export function CardPick({ spread, selectedCards, onCardSelect, onComplete }: CardPickProps) {
+  const { t } = useI18n();
   const shuffledDeck = useMemo(() => shuffle(deck), []);
   const [phase, setPhase] = useState<"thinking" | "intro" | "picking">("thinking");
   const [showPickThinking, setShowPickThinking] = useState(false);
@@ -60,10 +61,14 @@ export function CardPick({ spread, selectedCards, onCardSelect, onComplete }: Ca
   if (phase === "intro") {
     return (
       <div className="step-container">
-        <TypingText text={cardPickIntro} speed={20} onComplete={handleIntroDone} className="reader-message" />
+        <TypingText text={t.cardPick.intro} speed={20} onComplete={handleIntroDone} className="reader-message" />
       </div>
     );
   }
+
+  const cardOfLabel = t.cardPick.cardOf
+    .replace("{current}", String(currentIndex + 1))
+    .replace("{total}", String(spread.cardCount));
 
   return (
     <div className="step-container card-pick-step">
@@ -71,7 +76,7 @@ export function CardPick({ spread, selectedCards, onCardSelect, onComplete }: Ca
         <FadeIn key={currentIndex}>
           <div className="pick-header">
             <p className="pick-position">
-              Card {currentIndex + 1} of {spread.cardCount}: <strong>{position.name}</strong>
+              {cardOfLabel} <strong>{position.name}</strong>
             </p>
             <TypingText text={position.instruction} speed={18} className="reader-message pick-instruction" />
           </div>
