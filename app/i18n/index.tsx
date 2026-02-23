@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, ReactNode } from "react";
+import { createContext, useContext, useState, useCallback, ReactNode, useEffect } from "react";
 import { Locale, Translations } from "./types";
 import { en } from "./en";
 import { vi } from "./vi";
@@ -24,7 +24,18 @@ const I18nContext = createContext<I18nContextValue>({
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("en");
 
-  const setLocale = useCallback((l: Locale) => setLocaleState(l), []);
+  // Load from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("lumina-locale") as Locale;
+    if (saved && translationMap[saved]) {
+      setLocaleState(saved);
+    }
+  }, []);
+
+  const setLocale = useCallback((l: Locale) => {
+    setLocaleState(l);
+    localStorage.setItem("lumina-locale", l);
+  }, []);
 
   const t = translationMap[locale];
 

@@ -18,7 +18,6 @@ export function LanguagePicker() {
           title={l.name}
         >
           <span className="lang-flag">{l.flag}</span>
-          <span className="lang-name">{l.name}</span>
         </button>
       ))}
     </div>

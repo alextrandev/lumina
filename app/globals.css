@@ -11,7 +11,7 @@
     --text-primary: #e8e6e3;
     --text-muted: #8a8894;
     --text-dim: #5a586a;
-    --font-heading: "Cinzel", serif;
+    --font-heading: "Cormorant Garamond", serif;
     --font-body: "Inter", sans-serif;
     --radius-card: 12px;
     --radius-btn: 8px;
@@ -672,46 +672,48 @@
 /* ===== Language Picker ===== */
 .language-picker {
   display: flex;
-  gap: 6px;
+  gap: 12px; /* Increased gap */
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .lang-btn {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  background: var(--bg-surface);
-  border: 1px solid var(--text-dim);
-  border-radius: 20px;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 50%; /* Circle shape fits flags well */
   color: var(--text-muted);
-  font-family: var(--font-body);
-  font-size: 0.8rem;
   cursor: pointer;
-  transition: all var(--transition);
+  transition: all 0.3s ease;
 }
 
 .lang-btn:hover {
   border-color: var(--accent-dim);
-  color: var(--text-primary);
-  background: var(--bg-surface-hover);
+  background: rgba(201, 168, 76, 0.1);
+  transform: translateY(-2px);
 }
 
 .lang-btn.active {
   border-color: var(--accent);
-  color: var(--accent);
-  background: rgba(201, 168, 76, 0.08);
+  background: rgba(201, 168, 76, 0.2);
+  box-shadow: 0 0 15px rgba(201, 168, 76, 0.3);
+  transform: scale(1.1);
 }
 
 .lang-flag {
-  font-size: 1rem;
+  font-size: 1.5rem; /* Bigger flags */
   line-height: 1;
+  display: block;
 }
 
 .lang-name {
-  letter-spacing: 0.5px;
+  display: none; /* In case it's still in the DOM or used elsewhere */
 }
 
 /* ===== Responsive ===== */

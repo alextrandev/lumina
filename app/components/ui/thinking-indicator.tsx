@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useI18n } from "@/app/i18n";
 
 interface ThinkingIndicatorProps {
@@ -10,9 +10,9 @@ interface ThinkingIndicatorProps {
 
 export function ThinkingIndicator({ duration = 2000, onComplete }: ThinkingIndicatorProps) {
   const { t } = useI18n();
-  const [phrase] = useState(
-    () => t.thinking[Math.floor(Math.random() * t.thinking.length)]
-  );
+  const phrase = useMemo(() => {
+    return t.thinking[Math.floor(Math.random() * t.thinking.length)];
+  }, [t.thinking]);
 
   useEffect(() => {
     const timer = setTimeout(() => onComplete?.(), duration);
