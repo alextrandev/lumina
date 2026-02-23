@@ -1,1 +1,2 @@
+'/Users/s2400074/Documents/website_projects/lumina/public/model/lumina-onnx/onnx/model.onnx' filter=lfs diff=lfs merge=lfs -text
 *.onnx filter=lfs diff=lfs merge=lfs -text
