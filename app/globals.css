@@ -59,44 +59,70 @@
   pointer-events: none;
 }
 
-.stars {
+.star {
   position: absolute;
-  inset: 0;
-  background-repeat: repeat;
+  border-radius: 50%;
+  animation: twinkle ease-in-out infinite alternate;
 }
 
-.stars-small {
-  background-image: radial-gradient(1px 1px at 20px 30px, var(--text-dim), transparent),
-    radial-gradient(1px 1px at 40px 70px, var(--text-muted), transparent),
-    radial-gradient(1px 1px at 50px 160px, var(--text-dim), transparent),
-    radial-gradient(1px 1px at 60px 30px, var(--text-dim), transparent),
-    radial-gradient(1px 1px at 90px 100px, var(--text-muted), transparent),
-    radial-gradient(1px 1px at 150px 150px, var(--text-dim), transparent),
-    radial-gradient(1px 1px at 170px 50px, var(--text-dim), transparent),
-    radial-gradient(1px 1px at 120px 200px, var(--text-muted), transparent);
-  background-size: 200px 200px;
-  animation: twinkle 4s ease-in-out infinite alternate;
+.star-small {
+  width: 1.5px;
+  height: 1.5px;
+  background: white;
 }
 
-.stars-medium {
-  background-image: radial-gradient(1.5px 1.5px at 100px 50px, var(--text-muted), transparent),
-    radial-gradient(1.5px 1.5px at 200px 150px, var(--text-dim), transparent),
-    radial-gradient(1.5px 1.5px at 30px 180px, var(--text-muted), transparent),
-    radial-gradient(1.5px 1.5px at 250px 100px, var(--text-dim), transparent);
-  background-size: 300px 300px;
-  animation: twinkle 5s ease-in-out infinite alternate-reverse;
+.star-medium {
+  width: 2px;
+  height: 2px;
+  background: white;
 }
 
-.stars-large {
-  background-image: radial-gradient(2px 2px at 80px 120px, var(--accent-dim), transparent),
-    radial-gradient(2px 2px at 220px 80px, var(--accent-dim), transparent);
-  background-size: 400px 400px;
-  animation: twinkle 6s ease-in-out infinite alternate;
+.star-large {
+  width: 3px;
+  height: 3px;
+  background: white;
+}
+
+.star-glowing {
+  box-shadow: 0 0 6px var(--accent-glow);
+  background: var(--accent-glow);
 }
 
 @keyframes twinkle {
-  0% { opacity: 0.4; }
-  100% { opacity: 1; }
+  0% { opacity: 0.05; filter: brightness(0.8); }
+  100% { opacity: 1; filter: brightness(1.5); }
+}
+
+/* ===== Comets ===== */
+.comet {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 2px white, 0 0 20px 4px var(--accent);
+  opacity: 0;
+  transform: rotate(-45deg);
+  animation: shooting-star 15s linear infinite;
+}
+
+.comet::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 150px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(201, 168, 76, 0.4), transparent);
+  left: 100%;
+}
+
+@keyframes shooting-star {
+  0% { transform: translate(0, 0) rotate(-45deg); opacity: 0; }
+  1% { opacity: 1; }
+  12% { transform: translate(-80vw, 80vw) rotate(-45deg); opacity: 1; }
+  14% { transform: translate(-90vw, 90vw) rotate(-45deg); opacity: 0; }
+  100% { transform: translate(-90vw, 90vw) rotate(-45deg); opacity: 0; }
 }
 
 /* ===== Step Container ===== */
