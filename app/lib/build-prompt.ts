@@ -1,15 +1,21 @@
 import { Spread, TarotCard, UserInfo } from "@/app/types";
 
+export interface ChatMessage {
+  role: "system" | "user" | "assistant";
+  content: string;
+}
+
 /**
- * Constructs a Qwen2-format chat prompt for tarot reading.
- * Uses the <|im_start|> / <|im_end|> markers per the model's chat template.
+ * Constructs a Qwen2 chat-format prompt for tarot reading.
+ * Returns an array of chat messages that the pipeline will format
+ * using the model's chat template.
  */
 export function buildPrompt(opts: {
   spread: Spread;
   selectedCards: TarotCard[];
   question: string;
   userInfo: UserInfo;
-}): string {
+}): ChatMessage[] {
   const { spread, selectedCards, question, userInfo } = opts;
 
   // Build the card layout description
@@ -53,11 +59,8 @@ ${cardLayout}
 
 Please interpret these cards for me.`;
 
-  // Construct the Qwen2 chat format
-  return `<|im_start|>system
-${systemPrompt}<|im_end|>
-<|im_start|>user
-${userPrompt}<|im_end|>
-<|im_start|>assistant
-`;
+  return [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt },
+  ];
 }

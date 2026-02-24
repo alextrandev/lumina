@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 
+import { ChatMessage } from "@/app/lib/build-prompt";
+
 export type ModelStatus = "idle" | "downloading" | "ready" | "generating" | "done" | "error";
 
 interface UseModelReturn {
@@ -10,7 +12,7 @@ interface UseModelReturn {
   progressMessage: string;
   streamedText: string;
   error: string | null;
-  generate: (prompt: string) => void;
+  generate: (messages: ChatMessage[]) => void;
   abort: () => void;
 }
 
@@ -51,6 +53,9 @@ export function useModel(): UseModelReturn {
         case "token":
           setStreamedText(data.fullText);
           break;
+        case "generate-progress":
+          setProgressMessage(data.message);
+          break;
         case "generate-done":
           setStreamedText(data.fullText);
           setStatus("done");
@@ -71,12 +76,12 @@ export function useModel(): UseModelReturn {
     };
   }, []);
 
-  const generate = useCallback((prompt: string) => {
+  const generate = useCallback((messages: ChatMessage[]) => {
     if (!workerRef.current) return;
     setStreamedText("");
     setStatus("generating");
     setError(null);
-    workerRef.current.postMessage({ type: "generate", prompt });
+    workerRef.current.postMessage({ type: "generate", messages });
   }, []);
 
   const abort = useCallback(() => {

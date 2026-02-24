@@ -69,13 +69,13 @@ function AppContent() {
       !hasStartedGeneration.current
     ) {
       hasStartedGeneration.current = true;
-      const prompt = buildPrompt({
+      const messages = buildPrompt({
         spread: session.spread,
         selectedCards: session.selectedCards,
         question: session.question,
         userInfo: session.userInfo,
       });
-      model.generate(prompt);
+      model.generate(messages);
     }
   }, [session.step, model.status, session.spread, session.selectedCards, session.question, session.userInfo, model]);
 
