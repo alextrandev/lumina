@@ -18,9 +18,10 @@
 import { pipeline, env, TextGenerationPipeline } from "@huggingface/transformers";
 
 // Configure transformers.js to use local model files served from /model/lumina-onnx/
+// Web Workers need absolute URLs (relative paths fail in fetch inside workers)
 env.allowLocalModels = true;
 env.allowRemoteModels = false;
-env.localModelPath = "/model/";
+env.localModelPath = `${self.location.origin}/model/`;
 
 let generator: TextGenerationPipeline | null = null;
 let abortController: AbortController | null = null;
