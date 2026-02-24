@@ -11,6 +11,7 @@ interface ReadingResultProps {
   selectedCards: TarotCard[];
   question: string;
   userInfo: UserInfo;
+  readingText: string;
   onRestart: () => void;
 }
 
@@ -19,6 +20,7 @@ export function ReadingResult({
   selectedCards,
   question,
   userInfo,
+  readingText,
   onRestart,
 }: ReadingResultProps) {
   const { t } = useI18n();
@@ -27,6 +29,11 @@ export function ReadingResult({
   const subtitle = t.reading.subtitle
     .replace("{spread}", spread.name)
     .replace("{count}", String(spread.cardCount));
+
+  // Split reading text into paragraphs for nice rendering
+  const paragraphs = readingText
+    ? readingText.split(/\n\n+/).filter((p) => p.trim())
+    : [];
 
   return (
     <div className="step-container reading-result">
@@ -56,8 +63,16 @@ export function ReadingResult({
       <FadeIn delay={800}>
         <div className="reading-interpretation">
           <h3>{t.reading.interpretationTitle}</h3>
-          <p>{t.reading.interpretationText}</p>
-          <p className="reading-placeholder-note">{t.reading.placeholderNote}</p>
+          {paragraphs.length > 0 ? (
+            paragraphs.map((paragraph, i) => (
+              <p key={i}>{paragraph}</p>
+            ))
+          ) : (
+            <>
+              <p>{t.reading.interpretationText}</p>
+              <p className="reading-placeholder-note">{t.reading.placeholderNote}</p>
+            </>
+          )}
         </div>
       </FadeIn>
 

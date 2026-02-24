@@ -50,6 +50,7 @@ export const fi: Translations = {
       "Kohtalon lankoja luetaan...",
       "Näen kuvioiden muotoutuvan tähtien valossa...",
     ],
+    downloading: "Ladataan oraakkelia...",
   },
   reading: {
     title: "Lukemisesi, {name}",

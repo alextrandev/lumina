@@ -565,6 +565,37 @@
   transition: opacity 0.3s ease;
 }
 
+/* ===== Model Download Progress ===== */
+.model-progress {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.model-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--bg-surface);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.model-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-dim), var(--accent), var(--accent-glow));
+  border-radius: 2px;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.model-progress-text {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
 /* ===== Reading Result ===== */
 .reading-result {
   gap: 24px;

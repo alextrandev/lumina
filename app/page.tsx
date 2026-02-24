@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useSession } from "@/app/hooks/use-session";
+import { useModel } from "@/app/hooks/use-model";
 import { useI18n } from "@/app/i18n";
 import { StarField } from "@/app/components/ui/star-field";
 import { Welcome } from "@/app/components/steps/welcome";
@@ -13,10 +14,13 @@ import { LoadingScreen } from "@/app/components/steps/loading-screen";
 import { ReadingResult } from "@/app/components/steps/reading-result";
 import { Spread, TarotCard, UserInfo } from "@/app/types";
 import { I18nProvider } from "@/app/i18n";
+import { buildPrompt } from "@/app/lib/build-prompt";
 
 function AppContent() {
-  const { session, goTo, setSpread, setQuestion, updateUserInfo, addCard, reset } = useSession();
+  const { session, goTo, setSpread, setQuestion, updateUserInfo, addCard, setReadingText, reset } = useSession();
   const { t } = useI18n();
+  const model = useModel();
+  const hasStartedGeneration = useRef(false);
 
   const handleBegin = useCallback(() => goTo("spread-select"), [goTo]);
 
@@ -49,8 +53,45 @@ function AppContent() {
     [addCard]
   );
 
-  const handleCardsComplete = useCallback(() => goTo("loading"), [goTo]);
+  const handleCardsComplete = useCallback(() => {
+    hasStartedGeneration.current = false;
+    goTo("loading");
+  }, [goTo]);
+
   const handleLoadingComplete = useCallback(() => goTo("reading"), [goTo]);
+
+  // When we enter the loading step and the model is ready, start generation
+  useEffect(() => {
+    if (
+      session.step === "loading" &&
+      (model.status === "ready" || model.status === "done") &&
+      session.spread &&
+      !hasStartedGeneration.current
+    ) {
+      hasStartedGeneration.current = true;
+      const prompt = buildPrompt({
+        spread: session.spread,
+        selectedCards: session.selectedCards,
+        question: session.question,
+        userInfo: session.userInfo,
+      });
+      model.generate(prompt);
+    }
+  }, [session.step, model.status, session.spread, session.selectedCards, session.question, session.userInfo, model]);
+
+  // Stream the model's output into session state
+  useEffect(() => {
+    if (model.streamedText) {
+      setReadingText(model.streamedText);
+    }
+  }, [model.streamedText, setReadingText]);
+
+  // Handle model errors — go to reading with whatever text we have
+  useEffect(() => {
+    if (model.status === "error" && session.step === "loading") {
+      goTo("reading");
+    }
+  }, [model.status, session.step, goTo]);
 
   const translatedSpread = session.spread
     ? {
@@ -92,6 +133,8 @@ function AppContent() {
           <LoadingScreen
             spread={translatedSpread}
             selectedCards={session.selectedCards}
+            modelStatus={model.status}
+            modelProgress={model.progress}
             onComplete={handleLoadingComplete}
           />
         )}
@@ -101,6 +144,7 @@ function AppContent() {
             selectedCards={session.selectedCards}
             question={session.question}
             userInfo={session.userInfo}
+            readingText={session.readingText}
             onRestart={reset}
           />
         )}

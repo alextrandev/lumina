@@ -52,6 +52,7 @@ export const vi: Translations = {
       "Đợi mình một xíu, thông điệp đang tới rồi...",
       "Những lá bài đang kết nối với tâm hồn bạn đó...",
     ],
+    downloading: "Đang tải xuống nguồn năng lượng vũ trụ...",
   },
   reading: {
     title: "Trải bài dành cho {name} nè",

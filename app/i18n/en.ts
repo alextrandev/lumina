@@ -50,6 +50,7 @@ export const en: Translations = {
       "The threads of fate are being read...",
       "I see the patterns forming in the starlight...",
     ],
+    downloading: "Downloading the oracle...",
   },
   reading: {
     title: "Your Reading, {name}",

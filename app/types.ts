@@ -47,4 +47,5 @@ export interface SessionData {
   question: string;
   userInfo: UserInfo;
   selectedCards: TarotCard[];
+  readingText: string;
 }

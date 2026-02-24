@@ -50,6 +50,7 @@ export const sv: Translations = {
       "Ödets trådar avläses...",
       "Jag ser mönster formas i stjärnljuset...",
     ],
+    downloading: "Laddar ner oraklet...",
   },
   reading: {
     title: "Din Läsning, {name}",

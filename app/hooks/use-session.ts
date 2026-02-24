@@ -9,6 +9,7 @@ const initialSession: SessionData = {
   question: "",
   userInfo: {},
   selectedCards: [],
+  readingText: "",
 };
 
 export function useSession() {
@@ -34,9 +35,13 @@ export function useSession() {
     setSession((s) => ({ ...s, selectedCards: [...s.selectedCards, card] }));
   }, []);
 
+  const setReadingText = useCallback((readingText: string) => {
+    setSession((s) => ({ ...s, readingText }));
+  }, []);
+
   const reset = useCallback(() => {
     setSession(initialSession);
   }, []);
 
-  return { session, goTo, setSpread, setQuestion, updateUserInfo, addCard, reset };
+  return { session, goTo, setSpread, setQuestion, updateUserInfo, addCard, setReadingText, reset };
 }
