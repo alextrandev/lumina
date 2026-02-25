@@ -1,7 +1,7 @@
 /**
  * Web Worker for ONNX model inference using @huggingface/transformers v3.
  *
- * Uses the pre-built onnx-community/Qwen2.5-0.5B-Instruct model from
+ * Uses the pre-built model from
  * HuggingFace, which is properly optimized for browser inference.
  * The model is ~360MB (q4) and downloads on first use, then cached.
  *
@@ -27,7 +27,7 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } from "@huggingface/transformers";
 
-const MODEL_ID = "onnx-community/Qwen2.5-0.5B-Instruct";
+const MODEL_ID = process.env.NEXT_PUBLIC_MODEL_ID!;
 
 let generator: TextGenerationPipeline | null = null;
 let abortController: AbortController | null = null;
