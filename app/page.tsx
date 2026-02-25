@@ -9,6 +9,7 @@ import { Welcome } from "@/app/components/steps/welcome";
 import { SpreadSelect } from "@/app/components/steps/spread-select";
 import { QuestionInput } from "@/app/components/steps/question-input";
 import { UserInfoStep } from "@/app/components/steps/user-info";
+import { ProfileView } from "@/app/components/steps/profile-view";
 import { CardPick } from "@/app/components/steps/card-pick";
 import { LoadingScreen } from "@/app/components/steps/loading-screen";
 import { ReadingResult } from "@/app/components/steps/reading-result";
@@ -35,9 +36,14 @@ function AppContent() {
   const handleQuestion = useCallback(
     (q: string) => {
       setQuestion(q);
-      goTo("user-info");
+      const hasInfo = session.userInfo.name || session.userInfo.age || session.userInfo.occupation || session.userInfo.status;
+      if (hasInfo) {
+        goTo("profile" as any);
+      } else {
+        goTo("user-info");
+      }
     },
-    [setQuestion, goTo]
+    [setQuestion, goTo, session.userInfo]
   );
 
   const handleUserInfo = useCallback(
@@ -47,6 +53,19 @@ function AppContent() {
     },
     [updateUserInfo, goTo]
   );
+
+  const handleProfileConfirm = useCallback(() => {
+    const hasInfo = session.userInfo.name || session.userInfo.age || session.userInfo.occupation || session.userInfo.status;
+    if (hasInfo) {
+      goTo("card-pick");
+    } else {
+      goTo("user-info");
+    }
+  }, [goTo, session.userInfo]);
+
+  const handleProfileEdit = useCallback(() => {
+    goTo("user-info");
+  }, [goTo]);
 
   const handleCardSelect = useCallback(
     (card: TarotCard) => addCard(card),
@@ -121,6 +140,13 @@ function AppContent() {
         {session.step === "spread-select" && <SpreadSelect onSelect={handleSpreadSelect} />}
         {session.step === "question" && <QuestionInput onSubmit={handleQuestion} />}
         {session.step === "user-info" && <UserInfoStep onComplete={handleUserInfo} />}
+        {(session.step as any) === "profile" && (
+          <ProfileView 
+            userInfo={session.userInfo} 
+            onEdit={handleProfileEdit} 
+            onConfirm={handleProfileConfirm} 
+          />
+        )}
         {session.step === "card-pick" && translatedSpread && (
           <CardPick
             spread={translatedSpread}

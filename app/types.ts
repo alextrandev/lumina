@@ -37,6 +37,7 @@ export type Step =
   | "spread-select"
   | "question"
   | "user-info"
+  | "profile"
   | "card-pick"
   | "loading"
   | "reading";
