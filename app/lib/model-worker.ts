@@ -141,10 +141,10 @@ async function generate(messages: ChatMessage[]) {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const output = await generator(messages as any, {
-      max_new_tokens: 512,
+      max_new_tokens: 300,
       temperature: 0.7,
       top_p: 0.9,
-      repetition_penalty: 1.1,
+      repetition_penalty: 1.3,
       do_sample: true,
       return_full_text: false,
       streamer,

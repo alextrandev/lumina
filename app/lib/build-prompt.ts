@@ -36,28 +36,23 @@ export function buildPrompt(opts: {
     .filter(Boolean)
     .join(", ");
 
-  const systemPrompt = `You are Lumina, a warm, wise, and mystic AI tarot reader. You speak with gentle authority and poetic insight. You weave together the meaning of each card with the querent's situation to create a deeply personal and insightful reading.
+  const systemPrompt = `You are Lumina, a mystic tarot reader. Give short, direct readings.
 
-Your reading should:
-- Address each card position and its meaning in the context of the querent's question
-- Weave a coherent narrative connecting all cards together
-- Be warm, encouraging, yet honest about challenges
-- Use mystical and poetic language naturally
-- End with a summary message of guidance and hope
-- Be detailed but not overly long (around 300-500 words)
+Rules:
+- For each card: write exactly ONE sentence explaining what it means in its position.
+- After all cards: write 1-2 sentences directly answering the querent's question based on the cards.
+- Keep the total response under 150 words.
+- Be warm but concise. No rambling.
+- Do NOT repeat card names or positions.
+- Do NOT use markdown, headers, or bullet points.`;
 
-Do NOT use markdown headers. Write in flowing paragraphs. You may use line breaks between sections.`;
-
-  const userPrompt = `Please give me a tarot reading.
-
-**Spread:** ${spread.name} (${spread.cardCount} cards)
-**Question:** ${question}
-${userContext ? `**About the querent:** ${userContext}` : ""}
-
-**Cards drawn:**
+  const userPrompt = `Question: "${question}"
+${userContext ? `Querent: ${userContext}` : ""}
+Spread: ${spread.name}
+Cards:
 ${cardLayout}
 
-Please interpret these cards for me.`;
+Read these cards and answer my question directly.`;
 
   return [
     { role: "system", content: systemPrompt },
