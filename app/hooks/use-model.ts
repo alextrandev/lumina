@@ -67,8 +67,9 @@ export function useModel(): UseModelReturn {
       }
     });
 
-    // Start downloading the model immediately
-    worker.postMessage({ type: "init" });
+    // Start downloading the model immediately, passing origin since workers
+    // may use blob/data URLs and can't reliably access self.location.origin
+    worker.postMessage({ type: "init", origin: window.location.origin });
 
     return () => {
       worker.terminate();

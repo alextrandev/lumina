@@ -1,13 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Turbopack is the default bundler in Next.js 16
-  turbopack: {
-    resolveAlias: {
-      fs: { browser: "./empty-module.js" },
-      path: { browser: "./empty-module.js" },
-      crypto: { browser: "./empty-module.js" },
-    },
+  async rewrites() {
+    return [
+      {
+        // WebLLM appends /resolve/main/ to model URLs (HuggingFace convention).
+        // Rewrite to serve from public/model/ directly.
+        source: "/model/resolve/main/:path*",
+        destination: "/model/:path*",
+      },
+    ];
   },
 };
 
