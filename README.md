@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lumina ✦ The Virtual Oracle
 
-## Getting Started
+Lumina is a mystical portal designed to bring the ancient wisdom of tarot into our digital world. It uses artificial intelligence to offer you thoughtful and personal readings while keeping everything private on your own computer. Step into an immersive space where technology and intuition meet to guide you through your deepest questions.
 
-First, run the development server:
+## Functions:
+- **Guided Tarot Spreads**: Pick from a range of layouts like the Single Card, the Three Card journey through time, the Five Card Cross, the Horseshoe, or the detailed Celtic Cross.
+- **The Minds Behind the Magic**: Lumina is powered by a specialized version of the Qwen 2 language model. This intelligence has been fine tuned specifically to understand the symbolism and emotional depth of tarot cards.
+- **Completely Private Readings**: Unlike many other tools, your interpretations are generated right in your browser. This means your private thoughts and readings stay on your device and are never sent away to a server.
+- **A Personal Touch**: You can share a bit about yourself—like your name or what is on your mind—to help Lumina create a reading that truly speaks to your life.
+- **Global Wisdom**: Experience the oracle in several different languages, including English, Vietnamese, Finnish, and Swedish.
+- **Ethereal Atmosphere**: Lose yourself in a world of moving star fields, gentle typing effects, and a design that feels like a quiet dream.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## The Intelligence of Lumina
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+At the heart of Lumina is a high performance language model that lives entirely within your web browser. Here is how it works:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Specialized Training**: We use a fine tuned model based on the Qwen2.5-3B-Instruct model. It was trained on thousands of tarot readings to ensure it speaks with a voice that is both mystical and deeply empathetic.
+- **Local Power with WebGPU**: By using WebGPU, Lumina can tap into the power of your computer's graphics hardware to run the AI quickly. This allows for a smooth and responsive experience without needing an internet connection once the model is loaded.
+- **Invisible Execution**: To keep the interface feeling light and fast, the AI runs in a background worker. This means the stars can keep moving and the animations stay smooth while the oracle is thinking and writing your reading.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Technologies used
 
-## Learn More
+Languages:
+- **TypeScript** (Building the core logic)
 
-To learn more about Next.js, take a look at the following resources:
+Libraries and frameworks:
+- [**Next.js 15**](https://nextjs.org/) - A powerful framework for a smooth web experience.
+- [**React 19**](https://react.dev/) - The tool we used to build the interface.
+- [**Web LLM**](https://webllm.mlc.ai/) - The engine that lets the AI run locally in your browser.
+- [**Tailwind CSS**](https://tailwindcss.com/) - Helping us perfect the layout.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Setup and usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Explore the live page [here](https://tarot.alextran.dev/)**
 
-## Deploy on Vercel
+**To set up the project yourself**
+- Download the code: ```git clone https://github.com/alextrandev/lumina.git```
+- Go into the project folder: ```cd lumina```
+- Install what is needed: ```npm install```
+- Start the site locally: ```npm run dev```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Screenshot
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Homepage**
+![Homepage](./screenshots/01_homepage.png)
+
+**Spread Selection**
+![Spread Selection](./screenshots/02_spread_select.png)
+
+**Picking cards**
+![User randomly picking cards](./screenshots/03_card_pick.png)
+
+**Card reading**
+![Loading screen when model is reading the spread](./screenshots/04_card_reading.png)
+
+**Result of the spread**
+![The final result](./screenshots/05_result_page.png)
+
+## Sources 
+
+- [AI Model used for this project: Qwen2.5-3B-Instruct](https://huggingface.co/Qwen/Qwen2.5-3B-Instruct)
+- [Data set used for fine-tuning](https://huggingface.co/datasets/barissglc/tarot)
