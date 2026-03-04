@@ -3,7 +3,6 @@
 import { UserInfo } from "@/app/types";
 import { FadeIn } from "@/app/components/ui/fade-in";
 import { MysticButton } from "@/app/components/ui/mystic-button";
-import { useI18n } from "@/app/i18n";
 
 interface ProfileViewProps {
   userInfo: UserInfo;
@@ -12,7 +11,6 @@ interface ProfileViewProps {
 }
 
 export function ProfileView({ userInfo, onEdit, onConfirm }: ProfileViewProps) {
-  const { t } = useI18n();
 
   const hasInfo = userInfo.name || userInfo.age || userInfo.occupation || userInfo.status;
 

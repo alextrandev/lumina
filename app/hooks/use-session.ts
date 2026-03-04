@@ -19,15 +19,20 @@ export function useSession() {
 
   // Load user info from localStorage on mount
   useEffect(() => {
+    let mounted = true;
     const savedInfo = localStorage.getItem(STORAGE_KEY);
     if (savedInfo) {
       try {
         const parsed = JSON.parse(savedInfo);
-        setSession((s) => ({ ...s, userInfo: parsed }));
+        if (mounted) {
+          // eslint-disable-next-line
+          setSession((s) => ({ ...s, userInfo: parsed }));
+        }
       } catch (e) {
         console.error("Failed to parse saved user info", e);
       }
     }
+    return () => { mounted = false; };
   }, []);
 
   const goTo = useCallback((step: Step) => {

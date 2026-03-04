@@ -7,7 +7,6 @@ export function StarField() {
   useEffect(() => {
     // Generate individual stars to make them twinkle out of sync
     const generatedStars = Array.from({ length: 150 }).map((_, i) => {
-      // Use pseudo-random logic to ensure good distribution, or just Math.random since we are in useEffect
       const sizeClass = Math.random() > 0.8 ? "star-large" : Math.random() > 0.4 ? "star-medium" : "star-small";
       const isGlowing = Math.random() > 0.7;
       return {
@@ -17,12 +16,10 @@ export function StarField() {
         sizeClass,
         isGlowing,
         delay: `${Math.random() * 5}s`,
-        duration: `${3 + Math.random() * 4}s`, // Between 3s and 7s
+        duration: `${3 + Math.random() * 4}s`,
       };
     });
-    setStars(generatedStars);
 
-    // Generate comets positioned mostly top/right so they streak diagonally across the center
     const generatedComets = Array.from({ length: 6 }).map((_, i) => ({
       id: i,
       top: `${-10 + Math.random() * 40}vh`,
@@ -30,7 +27,14 @@ export function StarField() {
       delay: `${Math.random() * 15}s`,
       duration: `${12 + Math.random() * 8}s`,
     }));
-    setComets(generatedComets);
+
+    let mounted = true;
+    if (mounted) {
+      // eslint-disable-next-line
+      setStars(generatedStars);
+      setComets(generatedComets);
+    }
+    return () => { mounted = false; };
   }, []);
 
   return (

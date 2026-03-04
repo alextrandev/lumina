@@ -13,6 +13,7 @@ export function ThinkingIndicator({ duration = 2000, onComplete }: ThinkingIndic
   const [phrase, setPhrase] = useState(t.thinking[0]);
 
   useEffect(() => {
+    // eslint-disable-next-line
     setPhrase(t.thinking[Math.floor(Math.random() * t.thinking.length)]);
   }, [t.thinking]);
 

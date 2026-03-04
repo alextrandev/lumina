@@ -26,10 +26,13 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   // Load from localStorage on mount
   useEffect(() => {
+    let mounted = true;
     const saved = localStorage.getItem("lumina-locale") as Locale;
-    if (saved && translationMap[saved]) {
+    if (mounted && saved && translationMap[saved]) {
+      // eslint-disable-next-line
       setLocaleState(saved);
     }
+    return () => { mounted = false; };
   }, []);
 
   const setLocale = useCallback((l: Locale) => {

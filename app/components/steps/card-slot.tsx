@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { TarotCard } from "@/app/types";
 import { CardBack } from "./card-back";
 import { useI18n } from "@/app/i18n";
@@ -38,11 +39,12 @@ export function CardSlot({ card, isSelected, onSelect, disabled }: CardSlotProps
         </div>
         <div className="card-face card-back-side">
           {imgSrc && (
-            <img
+            <Image
               src={imgSrc}
               alt={card.name}
               className="card-image"
-              loading="lazy"
+              width={200}
+              height={350}
             />
           )}
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { FadeIn } from "@/app/components/ui/fade-in";
 import { TarotCard, Spread } from "@/app/types";
 import { useI18n } from "@/app/i18n";
@@ -53,7 +54,7 @@ export function LoadingScreen({
         {selectedCards.map((card, i) => (
           <FadeIn key={card.id} delay={i * 300}>
             <div className="loading-card">
-              <img src={card.imagePath} alt={card.name} className="loading-card-img" />
+              <Image src={card.imagePath} alt={card.name} className="loading-card-img" width={120} height={210} />
               <p className="loading-card-name">{spread.positions[i]?.name}</p>
             </div>
           </FadeIn>

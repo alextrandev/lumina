@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FadeIn } from "@/app/components/ui/fade-in";
 import { TarotCard, SpreadPosition } from "@/app/types";
 
@@ -11,7 +12,7 @@ export function ReadingCard({ card, position, delay }: ReadingCardProps) {
   return (
     <FadeIn delay={delay}>
       <div className="reading-card">
-        <img src={card.imagePath} alt={card.name} className="reading-card-img" />
+        <Image src={card.imagePath} alt={card.name} className="reading-card-img" width={100} height={175} />
         <div className="reading-card-info">
           <h4 className="reading-card-position">{position.name}</h4>
           <p className="reading-card-name">{card.name}</p>

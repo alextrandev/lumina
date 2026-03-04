@@ -38,7 +38,7 @@ function AppContent() {
       setQuestion(q);
       const hasInfo = session.userInfo.name || session.userInfo.age || session.userInfo.occupation || session.userInfo.status;
       if (hasInfo) {
-        goTo("profile" as any);
+        goTo("profile");
       } else {
         goTo("user-info");
       }
@@ -140,7 +140,7 @@ function AppContent() {
         {session.step === "spread-select" && <SpreadSelect onSelect={handleSpreadSelect} />}
         {session.step === "question" && <QuestionInput onSubmit={handleQuestion} />}
         {session.step === "user-info" && <UserInfoStep onComplete={handleUserInfo} />}
-        {(session.step as any) === "profile" && (
+        {session.step === "profile" && (
           <ProfileView 
             userInfo={session.userInfo} 
             onEdit={handleProfileEdit} 
