@@ -49,6 +49,7 @@ export function QuestionInput({ onSubmit }: QuestionInputProps) {
               onChange={setValue}
               onSubmit={handleSubmit}
               placeholder={t.question.placeholder}
+              autoComplete="off"
               multiline
             />
             <MysticButton onClick={handleSubmit} disabled={!value.trim()}>

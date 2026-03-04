@@ -18,8 +18,32 @@ export function ThinkingIndicator({ duration = 2000, onComplete }: ThinkingIndic
   }, [t.thinking]);
 
   useEffect(() => {
-    const timer = setTimeout(() => onComplete?.(), duration);
-    return () => clearTimeout(timer);
+    let isComplete = false;
+    let timer: NodeJS.Timeout;
+
+    const completeNow = () => {
+      if (!isComplete) {
+        isComplete = true;
+        clearTimeout(timer);
+        onComplete?.();
+      }
+    };
+
+    timer = setTimeout(completeNow, duration);
+
+    // Listen to click and keydown events to skip the indicator
+    const handleInteraction = (e: MouseEvent | KeyboardEvent) => {
+      completeNow();
+    };
+
+    window.addEventListener("click", handleInteraction);
+    window.addEventListener("keydown", handleInteraction);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("click", handleInteraction);
+      window.removeEventListener("keydown", handleInteraction);
+    };
   }, [duration, onComplete]);
 
   return (

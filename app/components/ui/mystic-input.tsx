@@ -9,6 +9,7 @@ interface MysticInputProps {
   placeholder?: string;
   multiline?: boolean;
   className?: string;
+  autoComplete?: string;
 }
 
 export function MysticInput({
@@ -18,6 +19,7 @@ export function MysticInput({
   placeholder = "",
   multiline = false,
   className = "",
+  autoComplete,
 }: MysticInputProps) {
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey && onSubmit) {
@@ -47,6 +49,7 @@ export function MysticInput({
       onChange={(e) => onChange(e.target.value)}
       onKeyDown={handleKeyDown}
       placeholder={placeholder}
+      autoComplete={autoComplete}
     />
   );
 }

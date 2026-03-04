@@ -9,10 +9,11 @@ import { useI18n } from "@/app/i18n";
 
 interface UserInfoQuestionProps {
   question: string;
+  autoComplete?: string;
   onAnswer: (value: string | undefined) => void;
 }
 
-export function UserInfoQuestion({ question, onAnswer }: UserInfoQuestionProps) {
+export function UserInfoQuestion({ question, autoComplete, onAnswer }: UserInfoQuestionProps) {
   const { t } = useI18n();
   const [typingDone, setTypingDone] = useState(false);
   const [value, setValue] = useState("");
@@ -44,6 +45,7 @@ export function UserInfoQuestion({ question, onAnswer }: UserInfoQuestionProps) 
               onChange={setValue}
               onSubmit={handleSubmit}
               placeholder={t.userInfo.placeholder}
+              autoComplete={autoComplete}
             />
             <div className="button-row">
               <MysticButton onClick={handleSubmit} disabled={!value.trim()}>

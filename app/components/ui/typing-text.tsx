@@ -17,16 +17,39 @@ export function TypingText({ text, speed = 30, onComplete, className = "" }: Typ
     setDisplayed("");
     setDone(false);
     let i = 0;
-    const interval = setInterval(() => {
-      i++;
-      setDisplayed(text.slice(0, i));
-      if (i >= text.length) {
+    let isComplete = false;
+    let interval: NodeJS.Timeout;
+
+    const completeNow = () => {
+      if (!isComplete) {
+        isComplete = true;
         clearInterval(interval);
+        setDisplayed(text);
         setDone(true);
         onComplete?.();
       }
+    };
+
+    interval = setInterval(() => {
+      i++;
+      if (!isComplete) setDisplayed(text.slice(0, i)); // Prevent overwriting if already skipped
+      if (i >= text.length) {
+        completeNow();
+      }
     }, speed);
-    return () => clearInterval(interval);
+
+    const handleInteraction = (e: MouseEvent | KeyboardEvent) => {
+      completeNow();
+    };
+
+    window.addEventListener("click", handleInteraction);
+    window.addEventListener("keydown", handleInteraction);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("click", handleInteraction);
+      window.removeEventListener("keydown", handleInteraction);
+    };
   }, [text, speed, onComplete]);
 
   return (

@@ -46,11 +46,20 @@ export function UserInfoStep({ onComplete }: UserInfoStepProps) {
 
   const current = questions[questionIndex];
 
+  const getAutoComplete = (key: string) => {
+    switch (key) {
+      case "name": return "name";
+      case "occupation": return "organization-title";
+      default: return "off";
+    }
+  };
+
   return (
     <div className="step-container">
       <UserInfoQuestion
         key={current.key}
         question={current.question}
+        autoComplete={getAutoComplete(current.key)}
         onAnswer={handleAnswer}
       />
     </div>
