@@ -42,7 +42,7 @@ export function LoadingScreen({
     }
   }, [modelStatus, onComplete]);
 
-  const isDownloading = modelStatus === "downloading";
+  const isDownloading = modelStatus === "downloading" || modelStatus === "idle";
 
   return (
     <div className="step-container loading-screen">
