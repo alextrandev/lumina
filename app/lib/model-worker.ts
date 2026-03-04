@@ -5,7 +5,7 @@
  * Uses the MLC WebGPU runtime for fast in-browser inference.
  *
  * Messages IN:
- *   { type: "init" }                                 — Start downloading / loading
+ *   { type: "init", origin: string }                 — Start downloading / loading
  *   { type: "generate", messages: ChatMessage[] }    — Run text generation
  *   { type: "abort" }                                — Abort current generation
  *
@@ -21,10 +21,12 @@
 import * as webllm from "@mlc-ai/web-llm";
 
 const MODEL_ID = "lumina-tarot-qwen2";
+
+// Qwen2.5-3B architecture (36 layers, 2048 hidden) — must match the compiled model
 const MODEL_LIB_URL =
   "https://raw.githubusercontent.com/mlc-ai/binary-mlc-llm-libs/main/web-llm-models/" +
   webllm.modelVersion +
-  "/Qwen2-1.5B-Instruct-q4f16_1-ctx4k_cs1k-webgpu.wasm";
+  "/Qwen2.5-3B-Instruct-q4f16_1-ctx4k_cs1k-webgpu.wasm";
 
 let engine: webllm.MLCEngine | null = null;
 
@@ -33,7 +35,57 @@ interface ChatMessage {
   content: string;
 }
 
+function log(level: "info" | "warn" | "error", ...args: unknown[]) {
+  const prefix = `[Worker:${MODEL_ID}]`;
+  switch (level) {
+    case "info":
+      console.log(prefix, ...args);
+      break;
+    case "warn":
+      console.warn(prefix, ...args);
+      break;
+    case "error":
+      console.error(prefix, ...args);
+      break;
+  }
+}
+
+function formatError(error: unknown): string {
+  if (error instanceof Error) {
+    // WASM runtime crash — provide a more helpful message
+    if (error.name === "ExitStatus" || error.message.includes("exit(")) {
+      return (
+        "WebGPU/WASM runtime crashed. This usually means: " +
+        "(1) the WASM library doesn't match the model architecture, " +
+        "(2) the device ran out of GPU memory, or " +
+        "(3) WebGPU is not fully supported on this browser. " +
+        `Original: ${error.name}: ${error.message}`
+      );
+    }
+    // Cache API failures
+    if (error.message.includes("Cache") || error.message.includes("Request failed")) {
+      return (
+        "Failed to cache model files. The model files at /model/ may not be accessible. " +
+        `Original: ${error.message}`
+      );
+    }
+    // WebGPU not available
+    if (error.message.includes("WebGPU") || error.message.includes("gpu")) {
+      return (
+        "WebGPU is not available. Please use a recent version of Chrome, Edge, or other WebGPU-capable browser. " +
+        `Original: ${error.message}`
+      );
+    }
+    return `${error.name}: ${error.message}`;
+  }
+  return String(error);
+}
+
 async function initModel(origin: string) {
+  log("info", "Starting model initialization...");
+  log("info", "Model URL:", origin + "/model");
+  log("info", "WASM library:", MODEL_LIB_URL);
+
   try {
     postMessage({ type: "init-progress", progress: 0, message: "Preparing WebGPU engine..." });
 
@@ -54,6 +106,7 @@ async function initModel(origin: string) {
       appConfig,
       initProgressCallback: (report: webllm.InitProgressReport) => {
         const pct = Math.round(report.progress * 100);
+        log("info", `Init progress: ${pct}% — ${report.text}`);
         postMessage({
           type: "init-progress",
           progress: pct,
@@ -62,23 +115,27 @@ async function initModel(origin: string) {
       },
     });
 
+    log("info", "Model loaded successfully!");
     postMessage({ type: "init-done" });
   } catch (error) {
-    console.error("[Worker] Model loading failed:", error);
-    postMessage({
-      type: "init-error",
-      error: error instanceof Error ? error.message : String(error),
-    });
+    const msg = formatError(error);
+    log("error", "Model loading failed:", error);
+    postMessage({ type: "init-error", error: msg });
   }
 }
 
 async function generate(messages: ChatMessage[]) {
   if (!engine) {
-    postMessage({ type: "generate-error", error: "Model not loaded" });
+    const msg = "Cannot generate: model is not loaded yet.";
+    log("error", msg);
+    postMessage({ type: "generate-error", error: msg });
     return;
   }
 
+  log("info", "Starting generation with", messages.length, "messages");
   let fullText = "";
+  let tokenCount = 0;
+  const startTime = Date.now();
 
   try {
     const chunks = await engine.chat.completions.create({
@@ -95,22 +152,26 @@ async function generate(messages: ChatMessage[]) {
     for await (const chunk of chunks) {
       const delta = chunk.choices[0]?.delta?.content || "";
       if (delta) {
+        tokenCount++;
         fullText += delta;
         postMessage({ type: "token", token: delta, fullText });
       }
     }
 
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+    const tokPerSec = tokenCount > 0 ? (tokenCount / ((Date.now() - startTime) / 1000)).toFixed(1) : "0";
+    log("info", `Generation complete: ${tokenCount} tokens in ${elapsed}s (${tokPerSec} tok/s)`);
     postMessage({ type: "generate-done", fullText });
   } catch (error) {
-    // If generation was interrupted, silently return
+    // If generation was interrupted by user, silently return
     if (error instanceof Error && error.message.includes("interrupt")) {
+      log("info", "Generation interrupted by user.");
       return;
     }
-    console.error("[Worker] Generation error:", error);
-    postMessage({
-      type: "generate-error",
-      error: error instanceof Error ? error.message : String(error),
-    });
+
+    const msg = formatError(error);
+    log("error", "Generation failed:", error);
+    postMessage({ type: "generate-error", error: msg });
   }
 }
 
@@ -126,6 +187,7 @@ self.addEventListener("message", (event: MessageEvent) => {
       generate(chatMessages);
       break;
     case "abort":
+      log("info", "Abort requested");
       engine?.interruptGenerate();
       break;
   }
