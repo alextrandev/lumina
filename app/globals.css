@@ -458,8 +458,8 @@
 
 .card-grid {
   display: grid;
-  /* Mobile: 8 columns (10 rows is 78 cards). Grid Height = Width * 1.875 */
-  grid-template-columns: repeat(8, 1fr);
+  /* Mobile: 9 columns. Grid Height = Width * 1.875 */
+  grid-template-columns: repeat(9, 1fr);
   gap: 4px;
   width: 100%;
   /* Restrict max-width based on available viewport height so it never overflows vertically */
@@ -469,8 +469,8 @@
 
 @media (min-width: 480px) {
   .card-grid {
-    /* Tablet: 10 columns (8 rows). Grid Height = Width * 1.2 */
-    grid-template-columns: repeat(10, 1fr);
+    /* Tablet: 11 columns. Grid Height = Width * 1.2 */
+    grid-template-columns: repeat(11, 1fr);
     gap: 6px;
     max-width: min(600px, calc((100vh - 220px) * 0.833));
   }
@@ -478,7 +478,7 @@
 
 @media (min-width: 768px) {
   .card-grid {
-    /* Desktop: 13 columns (6 rows). Grid Height = Width * 0.692 */
+    /* Desktop: 13 columns. Grid Height = Width * 0.692 */
     grid-template-columns: repeat(13, 1fr);
     gap: 8px;
     max-width: min(900px, calc((100vh - 240px) * 1.444));
