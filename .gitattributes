@@ -1,2 +1,2 @@
 *.onnx filter=lfs diff=lfs merge=lfs -text
-public/model/*.bin filter=lfs diff=lfs merge=lfs -text
+public/model/resolve/main/*.bin filter=lfs diff=lfs merge=lfs -text
