@@ -68,8 +68,8 @@ export function useModel(): UseModelReturn {
     });
 
     // Start downloading the model immediately.
-    // Use env var for model URL (e.g. HuggingFace), falling back to local /model path.
-    const modelUrl = process.env.NEXT_PUBLIC_MODEL_URL || window.location.origin + "/model";
+    // Model URL is set via NEXT_PUBLIC_MODEL_URL env var (e.g. HuggingFace).
+    const modelUrl = process.env.NEXT_PUBLIC_MODEL_URL!;
     worker.postMessage({ type: "init", modelUrl });
 
     return () => {
