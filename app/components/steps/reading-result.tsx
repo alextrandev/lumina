@@ -43,12 +43,12 @@ export function ReadingResult({
 
   return (
     <div className="step-container reading-result">
-      <FadeIn>
+      <FadeIn className="reading-header">
         <h2 className="reading-title">{title}</h2>
         <p className="reading-subtitle">{subtitle}</p>
       </FadeIn>
 
-      <FadeIn delay={300}>
+      <FadeIn delay={300} className="reading-question-container">
         <div className="reading-question">
           <p className="reading-question-label">{t.reading.questionLabel}</p>
           <p className="reading-question-text">&ldquo;{question}&rdquo;</p>
