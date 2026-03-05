@@ -72,23 +72,25 @@ export function CardPick({ spread, selectedCards, onCardSelect, onComplete }: Ca
 
   return (
     <div className="step-container card-pick-step">
-      {!isComplete && !showPickThinking && position && (
-        <FadeIn key={currentIndex}>
-          <div className="pick-header">
-            <p className="pick-position">
-              {cardOfLabel} <strong>{position.name}</strong>
-            </p>
-            <TypingText text={position.instruction} speed={18} className="reader-message pick-instruction" />
-          </div>
-        </FadeIn>
-      )}
+      <div className="pick-header-area">
+        {!isComplete && !showPickThinking && position && (
+          <FadeIn key={currentIndex}>
+            <div className="pick-header">
+              <p className="pick-position">
+                {cardOfLabel} <strong>{position.name}</strong>
+              </p>
+              <TypingText text={position.instruction} speed={18} className="reader-message pick-instruction" />
+            </div>
+          </FadeIn>
+        )}
 
-      {showPickThinking && (
-        <ThinkingIndicator
-          duration={1200}
-          onComplete={() => setShowPickThinking(false)}
-        />
-      )}
+        {showPickThinking && (
+          <ThinkingIndicator
+            duration={1200}
+            onComplete={() => setShowPickThinking(false)}
+          />
+        )}
+      </div>
 
       <CardGrid
         cards={shuffledDeck}

@@ -419,12 +419,21 @@
   min-height: calc(100vh - 140px);
 }
 
+.pick-header-area {
+  width: 100%;
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
 .pick-header {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   align-items: center;
-  margin-bottom: 8px;
+  width: 100%;
 }
 
 .pick-position {
@@ -432,11 +441,19 @@
   font-size: 1rem;
   color: var(--accent);
   letter-spacing: 1px;
+  margin: 0;
 }
 
 .pick-instruction {
   font-size: 0.95rem;
   max-width: 500px;
+  min-height: 2.8rem; /* Space for roughly 2 lines of text */
+}
+
+@media (max-width: 480px) {
+  .pick-header-area {
+    min-height: 130px;
+  }
 }
 
 .card-grid {
