@@ -186,6 +186,7 @@ function AppContent() {
             question={session.question}
             userInfo={session.userInfo}
             readingText={session.readingText}
+            isGenerating={model.status === "generating"}
             isError={model.status === "error"}
             onRestart={reset}
             onRetry={handleRetry}

@@ -929,18 +929,38 @@
   margin-bottom: 12px;
 }
 
-.reading-interpretation p {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-  margin-bottom: 12px;
+.reading-text-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  font-family: var(--font-inter);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-base);
+  text-align: left;
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 18px;
+  background-color: var(--accent);
+  margin-left: 4px;
+  vertical-align: middle;
+  animation: blink 1s step-start infinite;
+  box-shadow: 0 0 8px rgba(201, 168, 76, 0.5);
+  border-radius: 1px;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
 }
 
 .reading-placeholder-note {
-  text-align: center;
-  color: var(--accent-dim) !important;
   font-style: italic;
-  font-size: 0.9rem !important;
+  color: var(--text-dim);
+  text-align: center;
+  font-size: 0.95rem;
 }
 
 /* ===== Language Picker ===== */

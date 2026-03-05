@@ -12,6 +12,7 @@ interface ReadingResultProps {
   question: string;
   userInfo: UserInfo;
   readingText: string;
+  isGenerating?: boolean;
   isError?: boolean;
   onRestart: () => void;
   onRetry?: () => void;
@@ -23,6 +24,7 @@ export function ReadingResult({
   question,
   userInfo,
   readingText,
+  isGenerating,
   isError,
   onRestart,
   onRetry,
@@ -79,14 +81,30 @@ export function ReadingResult({
               )}
             </div>
           ) : paragraphs.length > 0 ? (
-            paragraphs.map((paragraph, i) => (
-              <p key={i}>{paragraph}</p>
-            ))
+            <div className="reading-text-content">
+              {paragraphs.map((paragraph, i) => (
+                <p key={i}>
+                  {paragraph}
+                  {/* If this is the last paragraph and model is still generating, show a cursor */}
+                  {i === paragraphs.length - 1 && isGenerating && (
+                    <span className="typing-cursor"></span>
+                  )}
+                </p>
+              ))}
+            </div>
           ) : (
-            <>
-              <p>{t.reading.interpretationText}</p>
-              <p className="reading-placeholder-note">{t.reading.placeholderNote}</p>
-            </>
+            <div className="reading-text-content">
+              {isGenerating ? (
+                <p>
+                  <span className="typing-cursor"></span>
+                </p>
+              ) : (
+                <>
+                  <p>{t.reading.interpretationText}</p>
+                  <p className="reading-placeholder-note">{t.reading.placeholderNote}</p>
+                </>
+              )}
+            </div>
           )}
         </div>
       </FadeIn>

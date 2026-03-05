@@ -35,12 +35,11 @@ export function LoadingScreen({
     return () => clearInterval(interval);
   }, [t.loading.phrases.length]);
 
-  // Transition to reading when generation is done
+  // Transition to reading when generation starts or is done
   useEffect(() => {
-    if (modelStatus === "done") {
-      // Small delay to let the user see the last phrase
-      const timer = setTimeout(onComplete, 1000);
-      return () => clearTimeout(timer);
+    if (modelStatus === "generating" || modelStatus === "done") {
+      // Transition immediately so we can see the text stream
+      onComplete();
     }
   }, [modelStatus, onComplete]);
 
