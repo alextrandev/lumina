@@ -363,13 +363,12 @@
 
 /* ===== Card Pick Step ===== */
 .card-pick-step {
-  gap: 20px;
+  gap: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  min-height: 550px;
   width: 100%;
+  min-height: calc(100vh - 140px);
 }
 
 .pick-header {
@@ -394,12 +393,31 @@
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(13, 1fr);
-  gap: 10px;
+  /* Mobile: 8 columns (10 rows is 78 cards). Grid Height = Width * 1.875 */
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
   width: 100%;
-  max-width: 900px;
-  margin-top: 12px;
-  align-self: flex-end;
+  /* Restrict max-width based on available viewport height so it never overflows vertically */
+  max-width: min(100%, calc((100vh - 200px) * 0.533));
+  margin: 12px auto 0;
+}
+
+@media (min-width: 480px) {
+  .card-grid {
+    /* Tablet: 10 columns (8 rows). Grid Height = Width * 1.2 */
+    grid-template-columns: repeat(10, 1fr);
+    gap: 6px;
+    max-width: min(600px, calc((100vh - 220px) * 0.833));
+  }
+}
+
+@media (min-width: 768px) {
+  .card-grid {
+    /* Desktop: 13 columns (6 rows). Grid Height = Width * 0.692 */
+    grid-template-columns: repeat(13, 1fr);
+    gap: 8px;
+    max-width: min(900px, calc((100vh - 240px) * 1.444));
+  }
 }
 
 /* ===== Card Slot (Flip Animation) ===== */
