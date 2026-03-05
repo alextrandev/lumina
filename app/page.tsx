@@ -105,12 +105,26 @@ function AppContent() {
     }
   }, [model.streamedText, setReadingText]);
 
-  // Handle model errors — go to reading with whatever text we have
+  // Handle model errors — go to reading with whatever text we have (or the error message)
   useEffect(() => {
-    if (model.status === "error" && session.step === "loading") {
+    if (model.status === "error" && session.step === "loading" && hasStartedGeneration.current) {
       goTo("reading");
     }
   }, [model.status, session.step, goTo]);
+
+  const handleRetry = useCallback(() => {
+    hasStartedGeneration.current = true;
+    if (session.spread) {
+      const messages = buildPrompt({
+        spread: session.spread,
+        selectedCards: session.selectedCards,
+        question: session.question,
+        userInfo: session.userInfo,
+      });
+      model.generate(messages);
+    }
+    goTo("loading");
+  }, [session.spread, session.selectedCards, session.question, session.userInfo, model, goTo]);
 
   const translatedSpread = session.spread
     ? {
@@ -172,7 +186,9 @@ function AppContent() {
             question={session.question}
             userInfo={session.userInfo}
             readingText={session.readingText}
+            isError={model.status === "error"}
             onRestart={reset}
+            onRetry={handleRetry}
           />
         )}
       </div>

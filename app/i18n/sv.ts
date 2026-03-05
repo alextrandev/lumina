@@ -63,6 +63,9 @@ export const sv: Translations = {
     placeholderNote: "✦ AI-driven tolkning kommer snart ✦",
     restart: "Börja En Ny Läsning",
     defaultName: "Sökare",
+    errorTitle: "Förbindelsen Bröts",
+    errorText: "De kosmiska trådarna som väver din läsning har tillfälligt slitits upp. Ibland är universums energi för turbulent för att kanaliseras tydligt vid första försöket. Se till att din ande är stadig och försök igen, eller sök kanske vägledning genom en annan portal (webbläsare).",
+    tryAgain: "Återknyt Och Försök Igen",
   },
   spreads: {
     single: {

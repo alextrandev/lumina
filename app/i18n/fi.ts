@@ -63,6 +63,9 @@ export const fi: Translations = {
     placeholderNote: "✦ Tekoälypohjainen tulkinta tulossa pian ✦",
     restart: "Aloita Uusi Lukeminen",
     defaultName: "Etsijä",
+    errorTitle: "Yhteys Katkesi",
+    errorText: "Kosmiset langat, jotka kutovat lukemistasi, ovat väliaikaisesti rispaantuneet. Joskus universumin energia on liian pyörteistä kanavoitavaksi selkeästi ensimmäisellä yrityksellä. Varmista, että henkesi on vakaa, ja yritä uudelleen, tai ehkä etsi opastusta toisen portaalin (selaimen) kautta.",
+    tryAgain: "Kohdista Uudelleen Ja Yritä",
   },
   spreads: {
     single: {

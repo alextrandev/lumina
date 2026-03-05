@@ -63,6 +63,9 @@ export const en: Translations = {
     placeholderNote: "✦ AI-powered interpretation coming soon ✦",
     restart: "Begin a New Reading",
     defaultName: "Seeker",
+    errorTitle: "The Connection Faltered",
+    errorText: "The cosmic threads weaving your reading have temporarily frayed. Sometimes the universe's energy is too turbulent to channel clearly on the first attempt. Please ensure your spirit is steady, and try again, or perhaps seek guidance through another portal (browser).",
+    tryAgain: "Realign and Try Again",
   },
   spreads: {
     single: {

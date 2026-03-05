@@ -65,6 +65,9 @@ export const vi: Translations = {
     placeholderNote: "✦ Thông điệp từ AI sẽ sớm xuất hiện tại đây nha ✦",
     restart: "Làm một trải bài mới nhé?",
     defaultName: "Bạn thân mến",
+    errorTitle: "Kết Nối Bị Gián Đoạn",
+    errorText: "Những sợi tơ định mệnh dệt nên trải bài của bạn tạm thời đang rối một chút. Đôi khi năng lượng của vũ trụ quá mạnh để có thể kết nối trọn vẹn trong lần thử đầu tiên. Giữ cho tâm trí tĩnh lặng và thử lại nhé, hoặc bạn có thể tìm kiếm thông điệp qua một cánh cổng khác (trình duyệt khác).",
+    tryAgain: "Kết Nối Lại Lần Nữa",
   },
   spreads: {
     single: {

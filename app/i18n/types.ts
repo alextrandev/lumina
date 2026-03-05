@@ -67,6 +67,9 @@ export interface Translations {
     placeholderNote: string;
     restart: string;
     defaultName: string;
+    errorTitle?: string;
+    errorText?: string;
+    tryAgain?: string;
   };
   spreads: Record<string, SpreadTranslation>;
 }

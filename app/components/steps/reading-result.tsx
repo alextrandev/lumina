@@ -12,7 +12,9 @@ interface ReadingResultProps {
   question: string;
   userInfo: UserInfo;
   readingText: string;
+  isError?: boolean;
   onRestart: () => void;
+  onRetry?: () => void;
 }
 
 export function ReadingResult({
@@ -21,7 +23,9 @@ export function ReadingResult({
   question,
   userInfo,
   readingText,
+  isError,
   onRestart,
+  onRetry,
 }: ReadingResultProps) {
   const { t } = useI18n();
   const name = userInfo.name || t.reading.defaultName;
@@ -62,8 +66,19 @@ export function ReadingResult({
 
       <FadeIn delay={800}>
         <div className="reading-interpretation">
-          <h3>{t.reading.interpretationTitle}</h3>
-          {paragraphs.length > 0 ? (
+          <h3>
+            {isError ? (t.reading.errorTitle || "The Connection Faltered") : t.reading.interpretationTitle}
+          </h3>
+          {isError ? (
+            <div className="reading-error-state">
+              <p>{t.reading.errorText}</p>
+              {onRetry && (
+                <div style={{ marginTop: "24px", display: "flex", justifyContent: "center" }}>
+                  <MysticButton onClick={onRetry}>{t.reading.tryAgain || "Realign and Try Again"}</MysticButton>
+                </div>
+              )}
+            </div>
+          ) : paragraphs.length > 0 ? (
             paragraphs.map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
             ))
