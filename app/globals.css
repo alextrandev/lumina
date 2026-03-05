@@ -621,35 +621,108 @@
   user-select: none;
 }
 
-/* ===== Model Download Progress ===== */
-.model-progress {
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto;
+/* ===== Model Download Screen ===== */
+.model-download-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
   text-align: center;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
-.model-progress-bar {
+.model-download-icon {
+  font-size: 2.5rem;
+  color: var(--accent);
+  text-shadow: 0 0 30px rgba(201, 168, 76, 0.5);
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+.model-download-title {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+
+.model-download-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 400px;
+}
+
+.model-download-progress {
   width: 100%;
-  height: 4px;
-  background: var(--bg-surface);
-  border-radius: 2px;
-  overflow: hidden;
-  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
-.model-progress-fill {
+.model-download-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-surface);
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid var(--text-dim);
+}
+
+.model-download-fill {
   height: 100%;
   background: linear-gradient(90deg, var(--accent-dim), var(--accent), var(--accent-glow));
-  border-radius: 2px;
-  transition: width 0.3s ease;
-  box-shadow: 0 0 8px var(--accent);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+  box-shadow: 0 0 12px var(--accent), 0 0 24px rgba(201, 168, 76, 0.2);
 }
 
-.model-progress-text {
+.model-download-percent {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+
+.model-download-cards {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  opacity: 0.6;
+  margin-top: 8px;
+}
+
+.model-download-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.model-download-card-img {
+  width: 44px;
+  height: 66px;
+  object-fit: fill;
+  border-radius: 4px;
+  border: 1px solid var(--accent-dim);
+}
+
+.model-download-card-label {
+  font-size: 0.6rem;
   color: var(--text-dim);
-  font-size: 0.8rem;
-  font-style: italic;
+  letter-spacing: 0.5px;
+  font-family: var(--font-heading);
+  max-width: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* ===== Reading Result ===== */

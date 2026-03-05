@@ -51,6 +51,8 @@ export const en: Translations = {
       "I see the patterns forming in the starlight...",
     ],
     downloading: "Downloading the oracle...",
+    preparingTitle: "Preparing Your Reading",
+    preparingSubtitle: "Lumina is getting ready to channel the cards. This only happens once — future readings will be instant.",
   },
   reading: {
     title: "Your Reading, {name}",

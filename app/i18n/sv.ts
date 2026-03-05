@@ -51,6 +51,8 @@ export const sv: Translations = {
       "Jag ser mönster formas i stjärnljuset...",
     ],
     downloading: "Laddar ner oraklet...",
+    preparingTitle: "Förbereder din läsning",
+    preparingSubtitle: "Lumina förbereder sig för att kanalisera korten. Detta sker bara en gång — framtida läsningar blir omedelbara.",
   },
   reading: {
     title: "Din Läsning, {name}",

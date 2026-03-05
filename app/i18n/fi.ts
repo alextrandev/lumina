@@ -51,6 +51,8 @@ export const fi: Translations = {
       "Näen kuvioiden muotoutuvan tähtien valossa...",
     ],
     downloading: "Ladataan oraakkelia...",
+    preparingTitle: "Valmistellaan lukemistasi",
+    preparingSubtitle: "Lumina valmistautuu kanavoimaan kortteja. Tämä tapahtuu vain kerran — tulevat lukemiset ovat välittömiä.",
   },
   reading: {
     title: "Lukemisesi, {name}",

@@ -53,6 +53,8 @@ export const vi: Translations = {
       "Những lá bài đang kết nối với tâm hồn bạn đó...",
     ],
     downloading: "Đang tải xuống nguồn năng lượng vũ trụ...",
+    preparingTitle: "Đang chuẩn bị cho trải bài của bạn",
+    preparingSubtitle: "Lumina đang chuẩn bị sẵn sàng để kết nối với những lá bài. Lần đầu sẽ hơi lâu một chút, nhưng những lần sau sẽ nhanh hơn nhiều nha.",
   },
   reading: {
     title: "Trải bài dành cho {name} nè",

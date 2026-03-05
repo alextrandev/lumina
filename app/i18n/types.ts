@@ -55,6 +55,8 @@ export interface Translations {
   loading: {
     phrases: string[];
     downloading?: string;
+    preparingTitle?: string;
+    preparingSubtitle?: string;
   };
   reading: {
     title: string;

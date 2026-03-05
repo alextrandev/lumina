@@ -161,6 +161,7 @@ function AppContent() {
             selectedCards={session.selectedCards}
             modelStatus={model.status}
             modelProgress={model.progress}
+            progressMessage={model.progressMessage}
             onComplete={handleLoadingComplete}
           />
         )}
