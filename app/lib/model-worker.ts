@@ -89,15 +89,28 @@ async function initModel(modelUrl: string) {
   try {
     postMessage({ type: "init-progress", progress: 0, message: "Preparing WebGPU engine..." });
 
+    const userAgent = self.navigator.userAgent;
+    const isSafari = userAgent.includes("Safari") && !userAgent.includes("Chrome") && !userAgent.includes("Chromium") && !userAgent.includes("Edg");
+
+    const overrides = isSafari
+      ? {
+          // Aggressively constrain memory parameters to prevent Safari (iOS/macOS)
+          // from silently crashing/reloading the tab during WebGPU initialization.
+          context_window_size: 2048,
+          // @ts-ignore - WebLLM v0.2.80 omits this from ChatConfig type, but uses it internally
+          prefill_chunk_size: 1024,
+        }
+      : {
+          context_window_size: 4096,
+        };
+
     const appConfig: webllm.AppConfig = {
       model_list: [
         {
           model: modelUrl,
           model_id: MODEL_ID,
           model_lib: MODEL_LIB_URL,
-          overrides: {
-            context_window_size: 4096,
-          },
+          overrides,
         },
       ],
     };
