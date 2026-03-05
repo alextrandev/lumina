@@ -81,9 +81,9 @@ function formatError(error: unknown): string {
   return String(error);
 }
 
-async function initModel(origin: string) {
+async function initModel(modelUrl: string) {
   log("info", "Starting model initialization...");
-  log("info", "Model URL:", origin + "/model");
+  log("info", "Model URL:", modelUrl);
   log("info", "WASM library:", MODEL_LIB_URL);
 
   try {
@@ -92,7 +92,7 @@ async function initModel(origin: string) {
     const appConfig: webllm.AppConfig = {
       model_list: [
         {
-          model: origin + "/model",
+          model: modelUrl,
           model_id: MODEL_ID,
           model_lib: MODEL_LIB_URL,
           overrides: {
@@ -177,11 +177,11 @@ async function generate(messages: ChatMessage[]) {
 
 // Handle messages from main thread
 self.addEventListener("message", (event: MessageEvent) => {
-  const { type, messages: chatMessages, origin } = event.data;
+  const { type, messages: chatMessages, modelUrl } = event.data;
 
   switch (type) {
     case "init":
-      initModel(origin);
+      initModel(modelUrl);
       break;
     case "generate":
       generate(chatMessages);

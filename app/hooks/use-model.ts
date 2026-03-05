@@ -67,9 +67,10 @@ export function useModel(): UseModelReturn {
       }
     });
 
-    // Start downloading the model immediately, passing origin since workers
-    // may use blob/data URLs and can't reliably access self.location.origin
-    worker.postMessage({ type: "init", origin: window.location.origin });
+    // Start downloading the model immediately.
+    // Use env var for model URL (e.g. HuggingFace), falling back to local /model path.
+    const modelUrl = process.env.NEXT_PUBLIC_MODEL_URL || window.location.origin + "/model";
+    worker.postMessage({ type: "init", modelUrl });
 
     return () => {
       worker.terminate();
