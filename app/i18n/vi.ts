@@ -66,8 +66,12 @@ export const vi: Translations = {
     restart: "Làm một trải bài mới nhé?",
     defaultName: "Bạn thân mến",
     errorTitle: "Kết Nối Bị Gián Đoạn",
-    errorText: "Những sợi tơ định mệnh dệt nên trải bài của bạn tạm thời đang rối một chút. Đôi khi năng lượng của vũ trụ quá mạnh để có thể kết nối trọn vẹn trong lần thử đầu tiên. Giữ cho tâm trí tĩnh lặng và thử lại nhé, hoặc bạn có thể tìm kiếm thông điệp qua một cánh cổng khác (trình duyệt khác).",
-    tryAgain: "Kết Nối Lại Lần Nữa",
+    errorText: "Những sợi tơ vũ trụ dệt nên quẻ bài của bạn tạm thời đã bị sờn. Đôi khi năng lượng của vũ trụ quá hỗn loạn để có thể truyền tải rõ ràng ngay từ lần thử đầu tiên. Hãy đảm bảo tâm thế của bạn vững vàng và thử lại, hoặc có lẽ hãy tìm kiếm sự hướng dẫn qua một trình duyệt khác (Chrome).",
+    tryAgain: "Cân bằng lại và Thử lại",
+  },
+  mobileBlock: {
+    title: "Vui lòng mở bằng Máy Tính",
+    message: "Năng lượng cần thiết để truyền dẫn vũ trụ qua Lumina là vô cùng lớn. Thiết bị nhỏ bé này thiếu 'độ rộng' tâm linh để nắm giữ tầm nhìn mà không gặp trục trặc. Để nhìn thấy rõ ràng, bạn phải bước trước một bệ thờ vĩ đại hơn — một thiết bị Máy tính để bàn. Ở đó, bức màn che sẽ được vén lên.",
   },
   spreads: {
     single: {

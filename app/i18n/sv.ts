@@ -64,8 +64,12 @@ export const sv: Translations = {
     restart: "Börja En Ny Läsning",
     defaultName: "Sökare",
     errorTitle: "Förbindelsen Bröts",
-    errorText: "De kosmiska trådarna som väver din läsning har tillfälligt slitits upp. Ibland är universums energi för turbulent för att kanaliseras tydligt vid första försöket. Se till att din ande är stadig och försök igen, eller sök kanske vägledning genom en annan portal (webbläsare).",
-    tryAgain: "Återknyt Och Försök Igen",
+    errorText: "De kosmiska trådar som väver din läsning har tillfälligt brustit. Ibland är universums energi för turbulent för att kanaliseras tydligt vid det första försöket. Se till att din ande är stadig, och försök igen, eller sök kanske vägledning genom en annan portal (webbläsare).",
+    tryAgain: "Balansera på nytt och försök igen",
+  },
+  mobileBlock: {
+    title: "Dator Krävs",
+    message: "Sökare, de energier som krävs för att kanalisera kosmos genom Lumina är enorma. Denna lilla enhet saknar den andliga 'vidd' som krävs för att hålla visionen utan att vackla. För att se tydligt måste du träda inför ett större altare — en stationär dator. Där ska slöjan lyftas.",
   },
   spreads: {
     single: {

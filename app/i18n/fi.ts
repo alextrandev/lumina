@@ -64,8 +64,12 @@ export const fi: Translations = {
     restart: "Aloita Uusi Lukeminen",
     defaultName: "Etsijä",
     errorTitle: "Yhteys Katkesi",
-    errorText: "Kosmiset langat, jotka kutovat lukemistasi, ovat väliaikaisesti rispaantuneet. Joskus universumin energia on liian pyörteistä kanavoitavaksi selkeästi ensimmäisellä yrityksellä. Varmista, että henkesi on vakaa, ja yritä uudelleen, tai ehkä etsi opastusta toisen portaalin (selaimen) kautta.",
-    tryAgain: "Kohdista Uudelleen Ja Yritä",
+    errorText: "Maailmankaikkeuden säikeet, jotka kutovat tulkintaasi, ovat tilapäisesti halkeilleet. Joskus maailmankaikkeuden energia on liian turbulenttia kanavoitavaksi selkeästi ensimmäisellä yrittämällä. Varmista, että henkesi on vakaa, ja yritä uudelleen, tai kenties etsi opastusta toisen portaalin (selaimen) kautta.",
+    tryAgain: "Tasapainota ja yritä uudelleen",
+  },
+  mobileBlock: {
+    title: "Käytä Työpöytäkonetta",
+    message: "Etsijä, energiat, joita tarvitaan maailmankaikkeuden kanavoimiseen Luminan kautta, ovat valtavat. Tältä pieneltä laitteelta puuttuu henkinen 'laajuus' pitää yllä näkyä horjumatta. Jotta voisit nähdä selvästi, sinun on astuttava suuremman alttarin ääreen — pöytäkoneen. Siellä verho nostetaan.",
   },
   spreads: {
     single: {

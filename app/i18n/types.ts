@@ -71,5 +71,9 @@ export interface Translations {
     errorText?: string;
     tryAgain?: string;
   };
+  mobileBlock: {
+    title: string;
+    message: string;
+  };
   spreads: Record<string, SpreadTranslation>;
 }

@@ -13,6 +13,8 @@ import { ProfileView } from "@/app/components/steps/profile-view";
 import { CardPick } from "@/app/components/steps/card-pick";
 import { LoadingScreen } from "@/app/components/steps/loading-screen";
 import { ReadingResult } from "@/app/components/steps/reading-result";
+import { MobileBlock } from "@/app/components/ui/mobile-block";
+import { usePathname } from "next/navigation";
 import { Spread, TarotCard, UserInfo } from "@/app/types";
 import { I18nProvider } from "@/app/i18n";
 import { buildPrompt } from "@/app/lib/build-prompt";
@@ -21,7 +23,18 @@ function AppContent() {
   const { session, goTo, setSpread, setQuestion, updateUserInfo, addCard, setReadingText, reset } = useSession();
   const { t } = useI18n();
   const model = useModel();
+  const pathname = usePathname();
   const hasStartedGeneration = useRef(false);
+
+  const isBypass = pathname === "/mobile";
+  
+  // Simple mobile detection
+  const isMobile = typeof window !== "undefined" && 
+    (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+
+  if (isMobile && !isBypass) {
+    return <MobileBlock />;
+  }
 
   const handleBegin = useCallback(() => goTo("spread-select"), [goTo]);
 

@@ -67,6 +67,10 @@ export const en: Translations = {
     errorText: "The cosmic threads weaving your reading have temporarily frayed. Sometimes the universe's energy is too turbulent to channel clearly on the first attempt. Please ensure your spirit is steady, and try again, or perhaps seek guidance through another portal (browser).",
     tryAgain: "Realign and Try Again",
   },
+  mobileBlock: {
+    title: "Desktop Required",
+    message: "Seeker, the energies required to channel the cosmos through Lumina are vast. This small device lacks the spiritual 'breadth' to hold the vision without faltering. To see clearly, you must step before a grander altar—a Desktop device. There, the veil shall be lifted.",
+  },
   spreads: {
     single: {
       name: "Single Card",

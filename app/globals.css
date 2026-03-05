@@ -830,6 +830,72 @@
   white-space: nowrap;
 }
 
+/* ===== Mobile Block ===== */
+.mobile-block-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.mobile-block-nav {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+}
+
+.mobile-block-content {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.mobile-block-icon {
+  font-size: 3.5rem;
+  color: var(--accent);
+  text-shadow: 0 0 20px var(--accent-glow);
+  margin-bottom: 8px;
+}
+
+.mobile-block-title {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+
+.mobile-block-message {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+}
+
+.mobile-block-decoration {
+  display: flex;
+  gap: 16px;
+  color: var(--accent-dim);
+  font-size: 0.8rem;
+  margin-top: 16px;
+}
+
+.mobile-block-decoration span {
+  animation: twinkle linear infinite;
+}
+
+.mobile-block-decoration span:nth-child(1) { animation-duration: 3s; }
+.mobile-block-decoration span:nth-child(2) { animation-duration: 2s; }
+.mobile-block-decoration span:nth-child(3) { animation-duration: 4s; }
+
 /* ===== Reading Result ===== */
 .reading-result {
   gap: 12px;
