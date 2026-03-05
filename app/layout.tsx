@@ -19,6 +19,8 @@ export const metadata: Metadata = {
   description: "Discover your path through the ancient wisdom of tarot, guided by AI.",
 };
 
+import { Signature } from "./components/ui/signature";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,7 +28,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Signature />
+        {children}
+      </body>
     </html>
   );
 }
